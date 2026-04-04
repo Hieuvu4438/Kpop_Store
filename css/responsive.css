@@ -1,0 +1,129 @@
+/* ===== Tinh chỉnh responsive cho Bento và bố cục ===== */
+/* (Bootstrap đã xử lý phần lớn breakpoint - đây là phần tùy biến bổ sung) */
+
+@media (max-width: 768px) {
+    .heading-xl {
+        font-size: 2.2rem;
+    }
+
+    .product-grid {
+        /* Giữ 2 thẻ mỗi hàng trên màn hình nhỏ giúp so sánh nhanh hơn khi duyệt nhạc. */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .product-card .card-body {
+        padding: 12px 14px 16px;
+    }
+
+    .product-card .card-title {
+        font-size: 0.95rem;
+    }
+
+    .product-card .card-price {
+        font-size: 0.9rem;
+    }
+
+    .product-detail .detail-title {
+        font-size: 1.8rem;
+    }
+
+    .product-detail .detail-actions {
+        flex-direction: column;
+    }
+
+    .floating-tags {
+        justify-content: center;
+    }
+
+    .chatbox {
+        /* Dùng gần full-width và chừa lề để nút mở chat dễ dùng mà không đè thao tác mép màn hình. */
+        width: calc(100% - 40px);
+        right: 20px;
+        left: 20px;
+    }
+
+    .bento-box {
+        padding: 18px;
+    }
+
+    .stat-number {
+        font-size: 2.2rem;
+    }
+
+    .qr-section {
+        padding: 20px;
+    }
+
+    .qr-section .qr-image {
+        width: 180px;
+        height: 180px;
+    }
+
+    .map-section iframe {
+        height: 250px;
+    }
+
+    .cart-item {
+        /* Cho phép xuống dòng để cụm giá/xóa không bị cắt khi tên bài hát quá dài. */
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading-xl {
+        font-size: 1.8rem;
+    }
+
+    .product-grid {
+        /* Giữ 2 cột ở 480px để tránh cuộn quá nhiều với danh mục dày. */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .product-card .card-body {
+        padding: 10px 12px 14px;
+    }
+
+    .product-card .card-artist {
+        font-size: 0.6rem;
+    }
+
+    .product-card .card-title {
+        font-size: 0.85rem;
+    }
+
+    .product-card .card-price {
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+
+    .qty-selector button {
+        width: 30px;
+        height: 28px;
+        font-size: 0.85rem;
+    }
+
+    .qty-selector .qty-value {
+        font-size: 0.75rem;
+        line-height: 28px;
+    }
+
+    .filter-bar {
+        gap: 6px;
+    }
+
+    .filter-btn {
+        padding: 5px 12px;
+        font-size: 0.75rem;
+    }
+
+    .product-detail .detail-title {
+        font-size: 1.5rem;
+    }
+
+    .product-detail .detail-price {
+        font-size: 1.3rem;
+    }
+}

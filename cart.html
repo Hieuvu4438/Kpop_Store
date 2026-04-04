@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gio hang - K-Pop Store</title>
+        <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/components.css" />
+        <link rel="stylesheet" href="css/responsive.css" />
+    </head>
+    <body>
+        <!-- Thanh điều hướng cố định giữ người dùng luôn cách danh mục một bước khi đang chỉnh số lượng trong giỏ -->
+        <nav class="navbar navbar-expand-lg sticky-top">
+            <div class="container">
+                <a class="navbar-brand text-upper" href="index.html">K-Pop Store</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                    <ul class="navbar-nav align-items-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
+                        <li class="nav-item">
+                            <a class="cart-nav-link" href="cart.html"
+                                >Cart <span class="cart-badge" id="cartBadge">0</span></a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div class="container">
+                <div class="page-header">
+                    <h1>Gio hang</h1>
+                    <div class="breadcrumb-custom"><a href="index.html">Trang chu</a> / Gio hang</div>
+                </div>
+                <div id="cartContent"></div>
+            </div>
+        </main>
+
+        <!-- Footer gọn giúp phần tổng tiền và CTA thanh toán không bị đẩy xuống trên màn hình nhỏ -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h5>K-Pop Store</h5>
+                        <p>Cua hang nhac so K-Pop hang dau.</p>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <h5>Lien ket</h5>
+                        <ul>
+                            <li><a href="index.html">Trang chu</a></li>
+                            <li><a href="cart.html">Gio hang</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 K-Pop Store. Made with <i class="fas fa-heart"></i> by fans.</p>
+                </div>
+            </div>
+        </footer>
+
+        <div class="toast-container" id="toastContainer"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/cart.js"></script>
+        <script>
+            (function () {
+                var cartContent = document.getElementById('cartContent');
+
+                function renderCart() {
+                    var items = Cart.getCart();
+
+                    if (items.length === 0) {
+                        // Render giỏ trống ngay tại chỗ để người dùng giữ ngữ cảnh trang và quay lại mua nhanh.
+                        cartContent.innerHTML =
+                            '<div class="empty-state">' +
+                            '<div class="empty-icon"><i class="fas fa-shopping-cart"></i></div>' +
+                            '<h3>Gio hang trong</h3>' +
+                            '<p>Ban chua them san pham nao vao gio hang.</p>' +
+                            '<a href="index.html" class="btn-pill btn-pill-filled">Mua sam ngay</a>' +
+                            '</div>';
+                        return;
+                    }
+
+                    var itemsHTML = items
+                        .map(function (item) {
+                            return (
+                                '<div class="cart-item">' +
+                                '<div class="cart-item-image"><img src="' +
+                                item.cover +
+                                '" alt="' +
+                                item.title +
+                                '"></div>' +
+                                '<div class="cart-item-info">' +
+                                '<h4>' +
+                                item.title +
+                                '</h4>' +
+                                '<p>' +
+                                item.artist +
+                                '</p>' +
+                                '</div>' +
+                                '<div class="cart-item-qty">' +
+                                '<div class="qty-selector">' +
+                                '<button onclick="changeQty(\'' +
+                                item.id +
+                                '\', -1)"><i class="fas fa-minus"></i></button>' +
+                                '<span class="qty-value">' +
+                                item.qty +
+                                '</span>' +
+                                '<button onclick="changeQty(\'' +
+                                item.id +
+                                '\', 1)"><i class="fas fa-plus"></i></button>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="cart-item-price">' +
+                                Cart.formatPrice(item.price * item.qty) +
+                                '</div>' +
+                                '<button class="cart-item-remove" onclick="removeItem(\'' +
+                                item.id +
+                                '\')" title="Xoa"><i class="fas fa-times"></i></button>' +
+                                '</div>'
+                            );
+                        })
+                        .join('');
+
+                    cartContent.innerHTML =
+                        '<div class="row g-4">' +
+                        '<div class="col-lg-8">' +
+                        itemsHTML +
+                        '</div>' +
+                        '<div class="col-lg-4">' +
+                        '<div class="cart-summary">' +
+                        '<h5 style="font-family: var(--font-heading); margin-bottom: 16px;">Don hang</h5>' +
+                        '<div class="summary-row"><span>So luong</span><span>' +
+                        Cart.getCartCount() +
+                        ' san pham</span></div>' +
+                        '<div class="summary-total"><span>Tong cong</span><span>' +
+                        Cart.formatPrice(Cart.getCartTotal()) +
+                        '</span></div>' +
+                        '<a href="checkout.html" class="btn-pill btn-pill-filled btn-pill-block" style="margin-top: 20px;">Thanh toan</a>' +
+                        '<a href="index.html" class="btn-pill btn-pill-outline btn-pill-block" style="margin-top: 10px;"><i class="fas fa-arrow-left"></i> Tiep tuc mua sam</a>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+                }
+
+                // Hàm cần gắn vào window vì nút số lượng được tạo động bằng inline onclick.
+                window.changeQty = function (id, delta) {
+                    Cart.updateQuantity(id, delta);
+                    renderCart();
+                };
+
+                // Cũng cần gắn vào window vì cùng cơ chế onclick trong markup tạo động.
+                window.removeItem = function (id) {
+                    Cart.removeFromCart(id);
+                    renderCart();
+                    showToast('Gio hang', 'Da xoa san pham khoi gio hang.');
+                };
+
+                renderCart();
+            })();
+        </script>
+        <script src="js/chat.js"></script>
+    </body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>K-Pop Music Store</title>
+        <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+        <meta
+            name="description"
+            content="Cua hang nhac so K-Pop - Mua album va bai hat tu BLACKPINK, BTS, NewJeans va nhieu hon nua."
+        />
+        <!-- Bootstrap được nạp trước để có sẵn utility/layout trước khi các style tùy biến ghi đè -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Font icon giúp giữ biểu tượng thao tác nhất quán giữa các trang mà không cần đóng gói SVG cục bộ -->
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" />
+        <!-- CSS tùy biến được nạp sau cùng để chủ động ghi đè mặc định của framework -->
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/components.css" />
+        <link rel="stylesheet" href="css/responsive.css" />
+    </head>
+    <body>
+        <!-- Thanh điều hướng dính giúp nút vào giỏ luôn hiển thị khi người dùng duyệt danh mục dài -->
+        <nav class="navbar navbar-expand-lg sticky-top">
+            <div class="container">
+                <a class="navbar-brand text-upper" href="index.html">K-Pop Store</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                    <ul class="navbar-nav align-items-center gap-1">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Collections</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="cart-nav-link" href="cart.html">
+                                Cart <span class="cart-badge" id="cartBadge">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Nội dung chính ưu tiên khám phá sản phẩm trước hành động thanh toán -->
+        <main>
+            <div class="container">
+                <!-- Khối hero dạng Bento giới thiệu thương hiệu nhanh mà không đẩy sản phẩm xuống dưới màn hình đầu -->
+                <section class="hero-bento">
+                    <div class="row g-3">
+                        <!-- Tiêu đề tương phản cao giúp quét nội dung nhanh hơn trên màn hình nhỏ -->
+                        <div class="col-lg-7">
+                            <div class="bento-box-transparent">
+                                <h1 class="heading-xl">DIGITAL <span class="pill-keyword">K-POP</span> MUSIC STORE</h1>
+                                <p class="hero-subtitle mt-3">
+                                    Kham pha va so huu nhung ban hit dinh nhat tu cac nghe si hang dau Han Quoc.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Kiểu tag xen kẽ giúp nhấn đặc tính sản phẩm trước khi người dùng mở trang chi tiết -->
+                        <div class="col-lg-5 d-flex align-items-center">
+                            <div class="floating-tags">
+                                <span class="floating-tag">Authentic</span>
+                                <span class="floating-tag filled">K-Pop</span>
+                                <span class="floating-tag">Digital</span>
+                                <span class="floating-tag">Premium</span>
+                                <span class="floating-tag filled">Fan-made</span>
+                                <span class="floating-tag">High Quality</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tín hiệu tin cậy được hiển thị sớm để giảm do dự trước lần thêm giỏ đầu tiên -->
+                    <div class="row g-3 mt-2">
+                        <div class="col-6 col-md-3">
+                            <div class="bento-box text-center">
+                                <div class="stat-number">150+</div>
+                                <div class="stat-label">Bai hat</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="bento-box bento-box-dark text-center">
+                                <div class="stat-number">6</div>
+                                <div class="stat-label">Nghe si</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="bento-box text-center">
+                                <div class="stat-number">MP3</div>
+                                <div class="stat-label">& FLAC</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <div class="bento-box text-center">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Auto delivery</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ô tìm kiếm đặt trước bộ lọc để người dùng bàn phím thu hẹp danh mục ngay -->
+                <div class="row mt-4 mb-3">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="search-pill">
+                            <span class="search-icon"><i class="fas fa-search"></i></span>
+                            <input type="text" id="searchInput" placeholder="Tim kiem bai hat, nghe si..." />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bộ lọc sinh theo dữ liệu để tránh lệch khi danh sách nghệ sĩ đổi trong JSON -->
+                <section class="filter-bar" id="filterBar">
+                    <span class="filter-label">Loc:</span>
+                    <button class="filter-btn active" data-filter="all">Tat ca</button>
+                </section>
+
+                <!-- Thẻ sản phẩm render bằng JS để dùng chung một nguồn dữ liệu cho tìm kiếm và lọc -->
+                <section class="product-grid" id="productGrid">
+                    <!-- Được render bằng JS -->
+                </section>
+
+                <!-- Trạng thái rỗng giữ nguyên ngữ cảnh tương tác thay vì chuyển hướng người dùng đi nơi khác -->
+                <div class="empty-state" id="emptyState" style="display: none">
+                    <div class="empty-icon"><i class="fas fa-music"></i></div>
+                    <h3>Khong tim thay ket qua</h3>
+                    <p>Thu tim kiem voi tu khoa khac hoac xoa bo loc.</p>
+                </div>
+
+                <!-- Bản đồ tải lười để không chặn bước khám phá sản phẩm ban đầu bởi iframe bên thứ ba -->
+                <section class="map-section">
+                    <h2><i class="fas fa-map-marker-alt"></i> Dia chi cua hang</h2>
+                    <div class="bento-box" style="padding: 0">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.5177580567037!2d106.69892!3d10.77154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f38f9ed887b%3A0x14aded5703768989!2sBitexco%20Financial%20Tower!5e0!3m2!1sen!2svn!4v1680000000000!5m2!1sen!2svn"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        >
+                        </iframe>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer lặp lại các đường dẫn chính để người dùng dễ thoát khỏi trạng thái cụt luồng -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <h5>K-Pop Store</h5>
+                        <p>Cua hang nhac so K-Pop hang dau. Mua va tai nhac chat luong cao tu cac nghe si yeu thich.</p>
+                    </div>
+                    <div class="col-6 col-md-2 mb-4">
+                        <h5>Lien ket</h5>
+                        <ul>
+                            <li><a href="index.html">Trang chu</a></li>
+                            <li><a href="cart.html">Gio hang</a></li>
+                            <li><a href="#">Gioi thieu</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md-3 mb-4">
+                        <h5>Nghe si</h5>
+                        <ul>
+                            <li><a href="#">BLACKPINK</a></li>
+                            <li><a href="#">BTS</a></li>
+                            <li><a href="#">NewJeans</a></li>
+                            <li><a href="#">TWICE</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <h5>Lien he</h5>
+                        <p>Email: hello@kpopstore.vn</p>
+                        <p>Hotline: 0909 123 456</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 K-Pop Store. Made with <i class="fas fa-heart"></i> by fans.</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Điểm gắn toast dùng chung giúp mọi trang hiển thị phản hồi bằng cùng một hàm hỗ trợ -->
+        <div class="toast-container" id="toastContainer"></div>
+
+        <!-- Bootstrap bundle bật hành vi thu gọn navbar mà không cần JS tự viết -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Nạp cart trước products để thao tác sản phẩm gọi API Cart an toàn -->
+        <script src="js/cart.js"></script>
+        <script src="js/products.js"></script>
+        <script src="js/chat.js"></script>
+    </body>
+</html>

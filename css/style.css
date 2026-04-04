@@ -1,0 +1,474 @@
+/* ===== Nạp Google Fonts ===== */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ===== Biến CSS - Editorial / Bento / Neo-Brutalism ===== */
+:root {
+    --cream: #f5f1e8;
+    --ink: #111111;
+    --white: #ffffff;
+    --gray: #777777;
+    --gray-light: #c8c3b8;
+    --border-color: #111111;
+
+    --font-heading: 'DM Serif Display', Georgia, serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+    --radius-box: 24px;
+    --radius-pill: 9999px;
+    --border: 1px solid var(--border-color);
+    --transition: 0.25s ease;
+}
+
+/* ===== Ghi đè Bootstrap ===== */
+body {
+    font-family: var(--font-body);
+    background-color: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: opacity var(--transition);
+}
+
+a:hover {
+    color: var(--ink);
+    opacity: 0.6;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Bỏ focus shadow của framework để giữ một kiểu viền nhất quán trên các control tùy biến. */
+.btn:focus,
+.form-control:focus,
+.navbar-toggler:focus {
+    box-shadow: none !important;
+}
+
+.btn {
+    box-shadow: none !important;
+}
+
+/* ===== Kiểu chữ ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    color: var(--ink);
+    font-weight: 400;
+}
+
+.heading-xl {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+    text-transform: uppercase;
+}
+
+.text-muted-custom {
+    color: var(--gray);
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.text-upper {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* ===== Từ khóa dạng pill (chèn trong tiêu đề) ===== */
+.pill-keyword {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 20px;
+    border: var(--border);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-heading);
+    font-style: italic;
+    vertical-align: middle;
+}
+
+/* ===== Thanh điều hướng ===== */
+.navbar {
+    background-color: var(--cream);
+    border-bottom: var(--border);
+    padding: 16px 0;
+}
+
+.navbar-brand {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+}
+
+.navbar-brand:hover {
+    color: var(--ink);
+}
+
+.navbar .nav-link {
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 6px 16px;
+    border: var(--border);
+    border-radius: var(--radius-pill);
+    margin-left: 6px;
+    transition: all var(--transition);
+}
+
+.navbar .nav-link:hover {
+    background-color: var(--ink);
+    color: var(--white);
+}
+
+.navbar .nav-link.active {
+    background-color: var(--ink);
+    color: var(--white);
+}
+
+.navbar-toggler {
+    border: var(--border);
+    border-radius: var(--radius-pill);
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+/* Liên kết giỏ hàng trên thanh điều hướng */
+.cart-nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 18px;
+    border: var(--border);
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: all var(--transition);
+}
+
+.cart-nav-link:hover {
+    background-color: var(--ink);
+    color: var(--white);
+}
+
+.cart-badge {
+    background-color: var(--ink);
+    color: var(--white);
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.cart-badge.show {
+    display: inline-flex;
+}
+
+/* ===== Khu vực Hero (Bento) ===== */
+.hero-bento {
+    padding: 50px 0 40px;
+}
+
+.hero-bento .heading-xl .pill-keyword {
+    font-size: 0.65em;
+    padding: 2px 18px;
+    margin: 0 4px;
+}
+
+.hero-subtitle {
+    color: var(--gray);
+    font-size: 1rem;
+    max-width: 480px;
+}
+
+/* Các khối Bento */
+.bento-box {
+    background: var(--white);
+    border: var(--border);
+    border-radius: var(--radius-box);
+    padding: 24px;
+    overflow: hidden;
+}
+
+.bento-box-dark {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+}
+
+.bento-box-transparent {
+    background: transparent;
+    border: none;
+    padding: 24px 0;
+}
+
+/* Thống kê trong Bento */
+.stat-number {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--ink);
+}
+
+.bento-box-dark .stat-number {
+    color: var(--white);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
+}
+
+.bento-box-dark .stat-label {
+    color: var(--gray-light);
+}
+
+/* Các nhãn nổi */
+.floating-tags {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 0;
+}
+
+.floating-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border: var(--border);
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--white);
+    transition: all var(--transition);
+}
+
+.floating-tag:nth-child(even) {
+    /* Nghiêng xen kẽ giúp hàng nhãn bớt cứng và đúng hướng thị giác dạng collage. */
+    transform: rotate(-3deg);
+}
+
+.floating-tag:nth-child(odd) {
+    /* Xoay ngược chiều giúp nhịp thị giác cân bằng thay vì nghiêng hẳn một phía. */
+    transform: rotate(2deg);
+}
+
+.floating-tag.filled {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+}
+
+/* ===== Thanh bộ lọc ===== */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: var(--border);
+}
+
+.filter-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray);
+    margin-right: 4px;
+}
+
+.filter-btn {
+    padding: 6px 18px;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: var(--border);
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.filter-btn:hover {
+    background-color: var(--ink);
+    color: var(--white);
+}
+
+.filter-btn.active {
+    background-color: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+}
+
+/* ===== Lưới sản phẩm ===== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* ===== Tiêu đề khu vực ===== */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--ink);
+    margin-bottom: 24px;
+}
+
+/* ===== Chân trang ===== */
+.footer {
+    background-color: var(--cream);
+    border-top: var(--border);
+    padding: 40px 0 20px;
+    margin-top: 60px;
+}
+
+.footer h5 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+}
+
+.footer p,
+.footer a {
+    color: var(--gray);
+    font-size: 0.85rem;
+    line-height: 1.9;
+}
+
+.footer a:hover {
+    color: var(--ink);
+    opacity: 1;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer ul li {
+    margin-bottom: 4px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: var(--border);
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+/* ===== Header trang (trang con) ===== */
+.page-header {
+    padding: 30px 0 20px;
+    border-bottom: var(--border);
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+}
+
+.page-header .breadcrumb-custom {
+    color: var(--gray);
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.page-header .breadcrumb-custom a {
+    color: var(--gray);
+}
+
+.page-header .breadcrumb-custom a:hover {
+    color: var(--ink);
+}
+
+/* ===== Thanh tìm kiếm ===== */
+.search-pill {
+    position: relative;
+}
+
+.search-pill input {
+    width: 100%;
+    padding: 8px 16px 8px 36px;
+    border-radius: var(--radius-pill);
+    border: var(--border);
+    background: var(--white);
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+    transition: border-color var(--transition);
+}
+
+.search-pill input::placeholder {
+    color: var(--gray-light);
+}
+
+.search-pill input:focus {
+    outline: none;
+    /* Dùng viền dày hơn làm tín hiệu focus chính sau khi tắt shadow của Bootstrap. */
+    border-color: var(--ink);
+    border-width: 2px;
+}
+
+.search-pill .search-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray);
+    font-size: 0.8rem;
+    pointer-events: none;
+}
+
+/* ===== Khu vực bản đồ ===== */
+.map-section {
+    margin-top: 40px;
+}
+
+.map-section .bento-box {
+    padding: 0;
+    overflow: hidden;
+}
+
+.map-section iframe {
+    width: 100%;
+    height: 350px;
+    border: 0;
+    display: block;
+}
+
+.map-section h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+}

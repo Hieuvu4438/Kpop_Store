@@ -1,0 +1,717 @@
+/* ===== Thẻ sản phẩm (bố cục image.png + phong cách Editorial) ===== */
+.product-card {
+    background: var(--white);
+    border: var(--border);
+    border-radius: var(--radius-box);
+    overflow: hidden;
+    transition: border-width var(--transition);
+}
+
+.product-card:hover {
+    /* Tăng độ dày viền giữ được cảm giác editorial phẳng tốt hơn thêm đổ bóng. */
+    border-width: 2px;
+}
+
+.product-card .card-image {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--cream);
+    display: block;
+}
+
+.product-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition);
+    /* Lớp grayscale nhẹ giúp ảnh bìa không xung đột với bảng màu trung tính của cửa hàng. */
+    filter: grayscale(20%);
+}
+
+.product-card:hover .card-image img {
+    transform: scale(1.03);
+}
+
+.product-card .card-type-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--ink);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.product-card .card-body {
+    padding: 16px 18px 20px;
+}
+
+.product-card .card-artist {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray);
+    margin-bottom: 2px;
+}
+
+.product-card .card-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-card .card-title a {
+    color: inherit;
+}
+
+.product-card .card-title a:hover {
+    opacity: 0.6;
+}
+
+.product-card .card-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 14px;
+}
+
+/* Bộ chọn số lượng */
+.qty-selector {
+    display: flex;
+    align-items: center;
+    border: var(--border);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.qty-selector button {
+    width: 36px;
+    height: 34px;
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition);
+}
+
+.qty-selector button:hover {
+    background: var(--ink);
+    color: var(--white);
+}
+
+.qty-selector .qty-value {
+    flex: 1;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    min-width: 30px;
+    border-left: var(--border);
+    border-right: var(--border);
+    line-height: 34px;
+}
+
+/* ===== Nút bấm ===== */
+.btn-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 24px;
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all var(--transition);
+    cursor: pointer;
+    border: var(--border);
+    letter-spacing: 0.3px;
+}
+
+.btn-pill-filled {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+}
+
+.btn-pill-filled:hover {
+    background: transparent;
+    color: var(--ink);
+}
+
+.btn-pill-outline {
+    background: transparent;
+    color: var(--ink);
+}
+
+.btn-pill-outline:hover {
+    background: var(--ink);
+    color: var(--white);
+}
+
+.btn-pill-sm {
+    padding: 6px 16px;
+    font-size: 0.8rem;
+}
+
+.btn-pill-block {
+    width: 100%;
+}
+
+/* ===== Thông báo toast ===== */
+.toast-container {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: var(--white);
+    border: var(--border);
+    border-radius: var(--radius-box);
+    padding: 14px 20px;
+    color: var(--ink);
+    font-size: 0.85rem;
+    /* Gộp animation vào một khai báo để thời điểm biến mất của toast luôn dự đoán được. */
+    animation:
+        toastIn 0.3s ease,
+        toastOut 0.3s ease 2.7s forwards;
+    max-width: 320px;
+}
+
+.toast .toast-title {
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes toastOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+}
+
+/* ===== Vòng quay tải ===== */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--gray-light);
+    border-top-color: var(--ink);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(245, 241, 232, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 1200;
+}
+
+.loading-overlay p {
+    color: var(--ink);
+    font-size: 1rem;
+    font-family: var(--font-heading);
+}
+
+/* ===== Trạng thái rỗng ===== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-state .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.4;
+}
+
+.empty-state h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* ===== Mục trong giỏ hàng ===== */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: var(--white);
+    border: var(--border);
+    border-radius: var(--radius-box);
+    margin-bottom: 12px;
+}
+
+.cart-item .cart-item-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: var(--border);
+}
+
+.cart-item .cart-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+}
+
+.cart-item .cart-item-info {
+    flex: 1;
+}
+
+.cart-item .cart-item-info h4 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.cart-item .cart-item-info p {
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+.cart-item .cart-item-price {
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.cart-item .cart-item-qty {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.cart-item .cart-item-remove {
+    background: none;
+    border: var(--border);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    color: var(--gray);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+}
+
+.cart-item .cart-item-remove:hover {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+}
+
+/* ===== Tóm tắt giỏ hàng ===== */
+.cart-summary {
+    background: var(--white);
+    border: var(--border);
+    border-radius: var(--radius-box);
+    padding: 24px;
+}
+
+.cart-summary .summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.cart-summary .summary-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: var(--border);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* ===== Thanh toán QR ===== */
+.qr-section {
+    text-align: center;
+    padding: 30px;
+    background: var(--white);
+    border: var(--border);
+    border-radius: var(--radius-box);
+}
+
+.qr-section h3 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+
+.qr-section .qr-image {
+    width: 220px;
+    height: 220px;
+    margin: 20px auto;
+    background: var(--white);
+    border: var(--border);
+    border-radius: var(--radius-box);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.qr-section .qr-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.qr-section .qr-info {
+    color: var(--gray);
+    font-size: 0.85rem;
+    margin: 16px 0;
+    line-height: 2;
+    text-align: left;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.qr-section .qr-info strong {
+    color: var(--ink);
+}
+
+/* ===== Trang thành công ===== */
+.success-box {
+    text-align: center;
+    padding: 40px;
+}
+
+.success-box .success-icon {
+    width: 64px;
+    height: 64px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 16px;
+}
+
+.success-box h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.success-box p {
+    color: var(--gray);
+    margin-bottom: 30px;
+}
+
+/* ===== Mục tải về ===== */
+.download-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: var(--white);
+    border: var(--border);
+    border-radius: var(--radius-box);
+    margin-bottom: 12px;
+}
+
+.download-item .download-info {
+    flex: 1;
+}
+
+.download-item .download-info h4 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.download-item .download-info p {
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+.download-item .download-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* ===== Hộp chat ===== */
+.chat-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--white);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    z-index: 1050;
+    transition: transform var(--transition);
+}
+
+.chat-toggle:hover {
+    transform: scale(1.08);
+}
+
+.chatbox {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    width: 340px;
+    /* Giới hạn chiều cao để hộp chat không che nút hành động thanh toán trên màn hình laptop thấp. */
+    max-height: 440px;
+    background: var(--white);
+    border: var(--border);
+    border-radius: var(--radius-box);
+    z-index: 1050;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chatbox.open {
+    display: flex;
+}
+
+.chatbox .chat-header {
+    padding: 14px 18px;
+    border-bottom: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatbox .chat-header h4 {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.chatbox .chat-header .chat-status {
+    font-size: 0.7rem;
+    color: var(--gray);
+}
+
+.chatbox .chat-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 250px;
+    background: var(--cream);
+}
+
+.chatbox .chat-msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.chatbox .chat-msg.user {
+    align-self: flex-end;
+    background: var(--ink);
+    color: var(--white);
+    border-bottom-right-radius: 4px;
+}
+
+.chatbox .chat-msg.bot {
+    align-self: flex-start;
+    background: var(--white);
+    color: var(--ink);
+    border: var(--border);
+    border-bottom-left-radius: 4px;
+}
+
+.chatbox .chat-input {
+    display: flex;
+    padding: 12px;
+    gap: 8px;
+    border-top: var(--border);
+}
+
+.chatbox .chat-input input {
+    flex: 1;
+    padding: 9px 16px;
+    border-radius: var(--radius-pill);
+    border: var(--border);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-family: var(--font-body);
+}
+
+.chatbox .chat-input input::placeholder {
+    color: var(--gray-light);
+}
+
+.chatbox .chat-input input:focus {
+    outline: none;
+    border-width: 2px;
+}
+
+.chatbox .chat-input button {
+    padding: 9px 18px;
+    border-radius: var(--radius-pill);
+    background: var(--ink);
+    color: var(--white);
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: opacity var(--transition);
+}
+
+.chatbox .chat-input button:hover {
+    opacity: 0.7;
+}
+
+/* ===== Chi tiết sản phẩm ===== */
+.product-detail .detail-image {
+    aspect-ratio: 1;
+    border-radius: var(--radius-box);
+    overflow: hidden;
+    border: var(--border);
+    background: var(--cream);
+}
+
+.product-detail .detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+}
+
+.product-detail .detail-artist {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray);
+    margin-bottom: 4px;
+}
+
+.product-detail .detail-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 8px;
+}
+
+.product-detail .detail-type {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    border: var(--border);
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.product-detail .detail-price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.product-detail .detail-price small {
+    font-size: 0.85rem;
+    color: var(--gray);
+    font-weight: 400;
+}
+
+.product-detail .detail-formats {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.product-detail .detail-formats span {
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    border: var(--border);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.product-detail .detail-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.product-detail .detail-description {
+    color: var(--gray);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}

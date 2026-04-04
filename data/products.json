@@ -1,0 +1,182 @@
+[
+    {
+        "id": "bp-001",
+        "title": "Pink Venom",
+        "artist": "BLACKPINK",
+        "genre": "K-Pop / Dance",
+        "price": 29000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Single",
+
+        "download": "#"
+    },
+    {
+        "id": "bp-002",
+        "title": "Shut Down",
+        "artist": "BLACKPINK",
+        "genre": "K-Pop / Dance",
+        "price": 29000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Single",
+
+        "download": "#"
+    },
+    {
+        "id": "bp-003",
+        "title": "BORN PINK (Album)",
+        "artist": "BLACKPINK",
+        "genre": "K-Pop",
+        "price": 149000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Album",
+
+        "download": "#"
+    },
+    {
+        "id": "bts-001",
+        "title": "Dynamite",
+        "artist": "BTS",
+        "genre": "K-Pop / Pop",
+        "price": 29000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Single",
+
+        "download": "#"
+    },
+    {
+        "id": "bts-002",
+        "title": "Butter",
+        "artist": "BTS",
+        "genre": "K-Pop / Pop",
+        "price": 29000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Single",
+
+        "download": "#"
+    },
+    {
+        "id": "bts-003",
+        "title": "Proof (Album)",
+        "artist": "BTS",
+        "genre": "K-Pop",
+        "price": 199000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Album",
+
+        "download": "#"
+    },
+    {
+        "id": "nj-001",
+        "title": "Super Shy",
+        "artist": "NewJeans",
+        "genre": "K-Pop / R&B",
+        "price": 25000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Single",
+
+        "download": "#"
+    },
+    {
+        "id": "nj-002",
+        "title": "Ditto",
+        "artist": "NewJeans",
+        "genre": "K-Pop / R&B",
+        "price": 25000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Single",
+
+        "download": "#"
+    },
+    {
+        "id": "nj-003",
+        "title": "Get Up (Album)",
+        "artist": "NewJeans",
+        "genre": "K-Pop",
+        "price": 129000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Album",
+
+        "download": "#"
+    },
+    {
+        "id": "tw-001",
+        "title": "The Feels",
+        "artist": "TWICE",
+        "genre": "K-Pop / Pop",
+        "price": 29000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Single",
+
+        "download": "#"
+    },
+    {
+        "id": "tw-002",
+        "title": "READY TO BE (Album)",
+        "artist": "TWICE",
+        "genre": "K-Pop",
+        "price": 159000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Album",
+
+        "download": "#"
+    },
+    {
+        "id": "iu-001",
+        "title": "LILAC",
+        "artist": "IU",
+        "genre": "K-Pop / Ballad",
+        "price": 29000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Single",
+
+        "download": "#"
+    },
+    {
+        "id": "iu-002",
+        "title": "The Winning (Album)",
+        "artist": "IU",
+        "genre": "K-Pop",
+        "price": 139000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Album",
+
+        "download": "#"
+    },
+    {
+        "id": "sk-001",
+        "title": "ANTIFRAGILE",
+        "artist": "LE SSERAFIM",
+        "genre": "K-Pop / Dance",
+        "price": 29000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Single",
+
+        "download": "#"
+    },
+    {
+        "id": "sk-002",
+        "title": "UNFORGIVEN (Album)",
+        "artist": "LE SSERAFIM",
+        "genre": "K-Pop",
+        "price": 139000,
+        "cover": "assets/images/album-placeholder.svg",
+        "format": ["MP3", "FLAC"],
+        "type": "Album",
+
+        "download": "#"
+    }
+]
