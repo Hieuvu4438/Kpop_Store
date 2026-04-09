@@ -1,29 +1,57 @@
 <!doctype html>
 <html lang="vi">
     <head>
+        <!-- =====================================================================
+             TRANG GIỚI THIỆU — K-Pop Music Store (about.html)
+             Chức năng: Giới thiệu thương hiệu, sứ mệnh, tầm nhìn, lý do chọn
+             cửa hàng và danh sách nghệ sĩ nổi bật. Không có logic JS phức tạp.
+        ====================================================================== -->
+
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Giới thiệu - K-Pop Store</title>
+
+        <!-- Favicon SVG — dùng chung toàn site -->
         <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+
+        <!-- SEO meta description cho trang Giới thiệu -->
         <meta name="description" content="Giới thiệu về K-Pop Music Store — Cửa hàng nhạc số K-Pop hàng đầu Việt Nam." />
+
+        <!-- Bootstrap CSS: framework layout/utility — nạp trước CSS tùy biến -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+        <!-- Font Awesome: thư viện icon dùng cho toàn trang -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/components.css" />
-        <link rel="stylesheet" href="css/responsive.css" />
+
+        <!-- CSS tùy biến — nạp sau để ghi đè Bootstrap mặc định -->
+        <link rel="stylesheet" href="css/style.css" />       <!-- Theme, biến CSS, màu sắc -->
+        <link rel="stylesheet" href="css/components.css" />  <!-- Bento box, badge, toast... -->
+        <link rel="stylesheet" href="css/responsive.css" />  <!-- Responsive breakpoints -->
     </head>
     <body>
+
+        <!-- ===================================================================
+             NAVBAR — Dùng lại cấu trúc điều hướng giống trang chủ.
+             class="active" trên "Giới thiệu" để đánh dấu trang hiện tại.
+             #cartBadge: cập nhật số lượng giỏ hàng bởi cart.js.
+        =================================================================== -->
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container">
+                <!-- Logo dẫn về trang chủ -->
                 <a class="navbar-brand text-upper" href="index.html">K-Pop Store</a>
+
+                <!-- Hamburger button cho mobile -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Menu item — "Giới thiệu" được đánh dấu active -->
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <ul class="navbar-nav align-items-center gap-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link active" href="about.html">Giới thiệu</a></li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+                        <!-- Giỏ hàng badge — số lượng được cart.js cập nhật tự động -->
                         <li class="nav-item">
                             <a class="cart-nav-link" href="cart.html">
                                 <i class="fas fa-shopping-cart"></i> Giỏ hàng <span class="cart-badge" id="cartBadge">0</span>
@@ -34,18 +62,35 @@
             </div>
         </nav>
 
+        <!-- ===================================================================
+             NỘI DUNG CHÍNH
+             Các section theo thứ tự:
+               1. Hero About (tiêu đề + biểu tượng âm nhạc)
+               2. Sứ mệnh / Tầm nhìn / Giá trị cốt lõi (3 cột bento)
+               3. Tại sao chọn chúng tôi (4 box đặc điểm nổi bật)
+               4. Nghệ sĩ nổi bật (6 avatar emoji + tên)
+        =================================================================== -->
         <main>
             <div class="container">
+
+                <!-- Tiêu đề trang + breadcrumb điều hướng -->
                 <div class="page-header">
                     <h1>Giới thiệu</h1>
+                    <!-- Breadcrumb: Trang chủ > Giới thiệu -->
                     <div class="breadcrumb-custom"><a href="index.html">Trang chủ</a> / Giới thiệu</div>
                 </div>
 
-                <!-- About Hero -->
+                <!-- ===== SECTION 1: HERO ABOUT =====
+                     Bố cục 2 cột: Cột trái (văn bản) + Cột phải (icon âm nhạc).
+                     bento-box-transparent: nền trong suốt, chỉ có nội dung văn bản.
+                     bento-box-dark: nền tối tương phản với cột trái.
+                -->
                 <section class="about-section">
                     <div class="row g-4 align-items-center">
+                        <!-- Cột trái: Tiêu đề thương hiệu + mô tả -->
                         <div class="col-lg-7">
                             <div class="bento-box-transparent">
+                                <!-- clamp() để tiêu đề tự co giãn theo width viewport -->
                                 <h2 class="heading-xl" style="font-size: clamp(2rem, 4vw, 3.5rem);">CHÚNG TÔI LÀ <span class="pill-keyword">K-POP</span> STORE</h2>
                                 <p class="hero-subtitle mt-3">
                                     Được thành lập bởi những người yêu nhạc Hàn Quốc, K-Pop Store là cửa hàng nhạc số
@@ -54,8 +99,11 @@
                                 </p>
                             </div>
                         </div>
+
+                        <!-- Cột phải: Box hiển thị biểu tượng nhạc + tagline -->
                         <div class="col-lg-5">
                             <div class="bento-box bento-box-dark text-center" style="padding: 40px;">
+                                <!-- Nốt nhạc làm focal point thị giác -->
                                 <div class="stat-number" style="font-size: 4rem;">♪</div>
                                 <p style="color: var(--gray-light); margin-top: 12px;">Âm nhạc kết nối trái tim</p>
                             </div>
@@ -63,11 +111,16 @@
                     </div>
                 </section>
 
-                <!-- Tầm nhìn & Sứ mệnh -->
+                <!-- ===== SECTION 2: SỨ MỆNH / TẦM NHÌN / GIÁ TRỊ CỐT LÕI =====
+                     3 bento box bằng nhau, mỗi box 1 giá trị công ty.
+                     h-100: đảm bảo các box đồng đều chiều cao trong cùng hàng.
+                -->
                 <section class="mt-5">
                     <div class="row g-3">
+                        <!-- Box 1: Sứ mệnh -->
                         <div class="col-md-4">
                             <div class="bento-box h-100">
+                                <!-- Icon bullseye = mục tiêu, nhắm →  sứ mệnh -->
                                 <div style="font-size: 2rem; margin-bottom: 12px;"><i class="fas fa-bullseye"></i></div>
                                 <h3 style="font-size: 1.3rem;">Sứ mệnh</h3>
                                 <p style="color: var(--gray); font-size: 0.9rem;">
@@ -76,8 +129,11 @@
                                 </p>
                             </div>
                         </div>
+
+                        <!-- Box 2: Tầm nhìn -->
                         <div class="col-md-4">
                             <div class="bento-box h-100">
+                                <!-- Icon mắt = nhìn xa →  tầm nhìn -->
                                 <div style="font-size: 2rem; margin-bottom: 12px;"><i class="fas fa-eye"></i></div>
                                 <h3 style="font-size: 1.3rem;">Tầm nhìn</h3>
                                 <p style="color: var(--gray); font-size: 0.9rem;">
@@ -86,8 +142,11 @@
                                 </p>
                             </div>
                         </div>
+
+                        <!-- Box 3: Giá trị cốt lõi -->
                         <div class="col-md-4">
                             <div class="bento-box h-100">
+                                <!-- Icon trái tim = đam mê, tâm huyết -->
                                 <div style="font-size: 2rem; margin-bottom: 12px;"><i class="fas fa-heart"></i></div>
                                 <h3 style="font-size: 1.3rem;">Giá trị cốt lõi</h3>
                                 <p style="color: var(--gray); font-size: 0.9rem;">
@@ -99,10 +158,14 @@
                     </div>
                 </section>
 
-                <!-- Tại sao chọn chúng tôi -->
+                <!-- ===== SECTION 3: TẠI SAO CHỌN K-POP STORE? =====
+                     4 box đặc điểm nổi bật, mỗi box 1 USP (Unique Selling Point).
+                     Xen kẽ bento-box và bento-box-dark để tạo tương phản thị giác.
+                -->
                 <section class="mt-5">
                     <h2 class="section-title"><i class="fas fa-star"></i> Tại sao chọn K-Pop Store?</h2>
                     <div class="row g-3">
+                        <!-- USP 1: Nhạc chất lượng cao — box dark (tương phản) -->
                         <div class="col-md-6">
                             <div class="bento-box bento-box-dark h-100">
                                 <h4 style="color: var(--white); font-size: 1.2rem; margin-bottom: 10px;">
@@ -114,6 +177,8 @@
                                 </p>
                             </div>
                         </div>
+
+                        <!-- USP 2: Giao hàng tức thì — box sáng -->
                         <div class="col-md-6">
                             <div class="bento-box h-100">
                                 <h4 style="font-size: 1.2rem; margin-bottom: 10px;">
@@ -125,6 +190,8 @@
                                 </p>
                             </div>
                         </div>
+
+                        <!-- USP 3: Thanh toán an toàn — box sáng -->
                         <div class="col-md-6">
                             <div class="bento-box h-100">
                                 <h4 style="font-size: 1.2rem; margin-bottom: 10px;">
@@ -136,6 +203,8 @@
                                 </p>
                             </div>
                         </div>
+
+                        <!-- USP 4: Hỗ trợ 24/7 — box dark (đối xứng với USP 1) -->
                         <div class="col-md-6">
                             <div class="bento-box bento-box-dark h-100">
                                 <h4 style="color: var(--white); font-size: 1.2rem; margin-bottom: 10px;">
@@ -150,40 +219,50 @@
                     </div>
                 </section>
 
-                <!-- Nghệ sĩ nổi bật -->
+                <!-- ===== SECTION 4: NGHỆ SĨ NỔI BẬT =====
+                     6 box nhỏ hiển thị tên nghệ sĩ với emoji đại diện.
+                     col-4 col-md-2: 3 cột/hàng trên mobile, 6 cột/hàng trên tablet+
+                     Xen kẽ bento-box-dark để tạo nhịp thị giác.
+                -->
                 <section class="mt-5 mb-4">
                     <h2 class="section-title"><i class="fas fa-users"></i> Nghệ sĩ nổi bật</h2>
                     <div class="row g-3">
+                        <!-- Nghệ sĩ 1: BLACKPINK -->
                         <div class="col-4 col-md-2">
                             <div class="bento-box text-center" style="padding: 16px;">
                                 <div style="font-size: 1.5rem; margin-bottom: 8px;">🖤</div>
                                 <div style="font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;">BLACKPINK</div>
                             </div>
                         </div>
+                        <!-- Nghệ sĩ 2: BTS — dark để tạo pattern xen kẽ sáng/tối -->
                         <div class="col-4 col-md-2">
                             <div class="bento-box bento-box-dark text-center" style="padding: 16px;">
                                 <div style="font-size: 1.5rem; margin-bottom: 8px;">💜</div>
                                 <div style="font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;">BTS</div>
                             </div>
                         </div>
+                        <!-- Nghệ sĩ 3: NewJeans -->
                         <div class="col-4 col-md-2">
                             <div class="bento-box text-center" style="padding: 16px;">
                                 <div style="font-size: 1.5rem; margin-bottom: 8px;">🐰</div>
                                 <div style="font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;">NewJeans</div>
                             </div>
                         </div>
+                        <!-- Nghệ sĩ 4: TWICE -->
                         <div class="col-4 col-md-2">
                             <div class="bento-box text-center" style="padding: 16px;">
                                 <div style="font-size: 1.5rem; margin-bottom: 8px;">🍭</div>
                                 <div style="font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;">TWICE</div>
                             </div>
                         </div>
+                        <!-- Nghệ sĩ 5: IU — dark -->
                         <div class="col-4 col-md-2">
                             <div class="bento-box bento-box-dark text-center" style="padding: 16px;">
                                 <div style="font-size: 1.5rem; margin-bottom: 8px;">🎵</div>
                                 <div style="font-size: 0.75rem; font-weight: 600; letter-spacing: 1px;">IU</div>
                             </div>
                         </div>
+                        <!-- Nghệ sĩ 6: LE SSERAFIM -->
                         <div class="col-4 col-md-2">
                             <div class="bento-box text-center" style="padding: 16px;">
                                 <div style="font-size: 1.5rem; margin-bottom: 8px;">🔥</div>
@@ -195,9 +274,14 @@
             </div>
         </main>
 
+        <!-- ===================================================================
+             FOOTER RÚT GỌN — 3 cột: Giới thiệu, Liên kết nội bộ, Thông tin liên hệ
+             (Không có form newsletter như trang chủ để giữ trang gọn hơn)
+        =================================================================== -->
         <footer class="footer">
             <div class="container">
                 <div class="row">
+                    <!-- Cột 1: Tên shop + mạng xã hội -->
                     <div class="col-md-4 mb-3">
                         <h5>K-Pop Store</h5>
                         <p>Cửa hàng nhạc số K-Pop hàng đầu.</p>
@@ -208,6 +292,8 @@
                             <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
+
+                    <!-- Cột 2: Điều hướng nội bộ nhanh -->
                     <div class="col-md-3 mb-3">
                         <h5>Liên kết</h5>
                         <ul>
@@ -217,22 +303,31 @@
                             <li><a href="contact.html">Liên hệ</a></li>
                         </ul>
                     </div>
+
+                    <!-- Cột 3: Thông tin liên hệ nhanh -->
                     <div class="col-md-3 mb-3">
                         <h5>Liên hệ</h5>
                         <p>Email: hello@kpopstore.vn</p>
                         <p>Hotline: 0909 123 456</p>
                     </div>
                 </div>
+
                 <div class="footer-bottom">
                     <p>&copy; 2026 K-Pop Store. Được tạo với <i class="fas fa-heart"></i> bởi những người yêu nhạc Hàn.</p>
                 </div>
             </div>
         </footer>
 
+        <!-- Container toast — hiển thị thông báo dùng chung toàn site -->
         <div class="toast-container" id="toastContainer"></div>
 
+        <!-- Bootstrap Bundle JS — xử lý collapse navbar trên mobile -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- cart.js: khởi tạo Cart API và cập nhật #cartBadge khi load trang -->
         <script src="js/cart.js"></script>
+
+        <!-- chat.js: widget chat hỗ trợ khách hàng -->
         <script src="js/chat.js"></script>
     </body>
 </html>

@@ -1,25 +1,58 @@
 <!doctype html>
 <html lang="vi">
     <head>
+        <!-- =====================================================================
+             TRANG CHI TIẾT SẢN PHẨM — K-Pop Music Store (product.html)
+             Chức năng: Hiển thị chi tiết một sản phẩm (album/bài hát) dựa vào
+             query parameter ?id= trên URL. Nội dung render hoàn toàn bởi inline JS.
+             
+             Luồng dữ liệu:
+               1. URLSearchParams lấy ?id= từ URL
+               2. fetch('data/products.json') lấy toàn bộ danh mục
+               3. Tìm sản phẩm khớp id → render #productDetail
+               4. Lọc sản phẩm cùng nghệ sĩ → render #relatedGrid
+             
+             Luồng mua hàng:
+               index.html [click thẻ] → product.html?id=xxx → Cart.addToCart() → cart.html
+        ====================================================================== -->
+
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Tiêu đề trang được cập nhật động bởi JS sau khi biết tên sản phẩm -->
         <title>Chi tiết sản phẩm - K-Pop Store</title>
+
+        <!-- Favicon SVG dùng chung -->
         <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+
+        <!-- SEO meta description tổng quát — JS không thể thay thế thẻ meta vì crawler -->
         <meta name="description" content="Xem chi tiết và mua nhạc số K-Pop chất lượng cao. Tải về ngay sau khi thanh toán." />
+
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+        <!-- Font Awesome — icon cart-plus, arrow-left, headphones... -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+        <!-- CSS tùy biến -->
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/components.css" />
         <link rel="stylesheet" href="css/responsive.css" />
     </head>
     <body>
-        <!-- Dùng lại cùng cấu trúc điều hướng giúp người dùng giữ định hướng xuyên suốt luồng mua hàng -->
+
+        <!-- ===================================================================
+             NAVBAR — Dùng lại cấu trúc điều hướng giúp người dùng giữ định hướng
+             xuyên suốt luồng mua hàng. Không có "active" vì product không trong menu.
+        =================================================================== -->
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container">
                 <a class="navbar-brand text-upper" href="index.html">K-Pop Store</a>
+
+                <!-- Hamburger button mobile -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <ul class="navbar-nav align-items-center gap-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
@@ -35,21 +68,41 @@
             </div>
         </nav>
 
+        <!-- ===================================================================
+             NỘI DUNG CHÍNH — Chi tiết sản phẩm
+             Layout sau khi JS render:
+               - Cột trái  (col-md-6): Ảnh bìa album lớn
+               - Cột phải  (col-md-6): Tên nghệ sĩ, tiêu đề, loại, giá,
+                                        định dạng file, nút thêm giỏ + mua tiếp
+             Phía dưới: Section sản phẩm liên quan (ẩn mặc định, hiện nếu có data)
+        =================================================================== -->
         <main>
             <div class="container">
+                <!-- Tiêu đề trang + breadcrumb động
+                     #breadcrumbTitle: JS sẽ cập nhật text thành tên sản phẩm -->
                 <div class="page-header">
                     <div class="breadcrumb-custom">
                         <a href="index.html">Trang chủ</a> / <span id="breadcrumbTitle">...</span>
                     </div>
                 </div>
 
+                <!-- Container chi tiết sản phẩm — JS render toàn bộ nội dung vào đây
+                     Hai trạng thái:
+                       - Không có ?id= hoặc id không khớp: hiển thị empty-state + link về trang chủ
+                       - Khớp: hiển thị layout 2 cột ảnh + thông tin -->
                 <div class="row g-4 product-detail" id="productDetail">
                     <!-- Được render bằng JS -->
                 </div>
 
-                <!-- Sản phẩm liên quan -->
+                <!-- ===== SẢN PHẨM LIÊN QUAN =====
+                     Mặc định ẩn (display: none).
+                     JS sẽ set display: block và render vào #relatedGrid nếu có sản phẩm
+                     cùng nghệ sĩ với sản phẩm đang xem.
+                     Dùng lại class "product-grid" để có cùng kiểu grid với trang chủ.
+                -->
                 <section class="related-products mt-5" id="relatedProducts" style="display: none;">
                     <h2 class="section-title"><i class="fas fa-headphones"></i> Sản phẩm liên quan</h2>
+                    <!-- JS render thẻ sản phẩm liên quan vào đây — cùng cấu trúc card với product-grid -->
                     <div class="product-grid" id="relatedGrid">
                         <!-- Được render bằng JS -->
                     </div>
@@ -57,9 +110,13 @@
             </div>
         </main>
 
+        <!-- ===================================================================
+             FOOTER RÚT GỌN — 3 cột: Thương hiệu, Liên kết, Liên hệ
+        =================================================================== -->
         <footer class="footer">
             <div class="container">
                 <div class="row">
+                    <!-- Cột 1: Logo + mạng xã hội -->
                     <div class="col-md-4 mb-3">
                         <h5>K-Pop Store</h5>
                         <p>Cửa hàng nhạc số K-Pop hàng đầu.</p>
@@ -70,6 +127,8 @@
                             <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
+
+                    <!-- Cột 2: Điều hướng nội bộ -->
                     <div class="col-md-3 mb-3">
                         <h5>Liên kết</h5>
                         <ul>
@@ -79,85 +138,127 @@
                             <li><a href="contact.html">Liên hệ</a></li>
                         </ul>
                     </div>
+
+                    <!-- Cột 3: Thông tin liên hệ -->
                     <div class="col-md-3 mb-3">
                         <h5>Liên hệ</h5>
                         <p>Email: hello@kpopstore.vn</p>
                         <p>Hotline: 0909 123 456</p>
                     </div>
                 </div>
+
                 <div class="footer-bottom">
                     <p>&copy; 2026 K-Pop Store. Được tạo với <i class="fas fa-heart"></i> bởi những người yêu nhạc Hàn.</p>
                 </div>
             </div>
         </footer>
 
+        <!-- Toast container — hiển thị thông báo "Đã thêm vào giỏ" -->
         <div class="toast-container" id="toastContainer"></div>
 
+        <!-- Bootstrap Bundle JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- cart.js: nạp trước — cung cấp Cart.addToCart(), Cart.formatPrice(), showToast() -->
         <script src="js/cart.js"></script>
+
         <script>
+            /**
+             * Inline script xử lý trang chi tiết sản phẩm.
+             * Dùng IIFE để tránh xung đột biến với cart.js và chat.js.
+             */
             (function () {
+                // Lấy product ID từ query string URL: product.html?id=blackpink-01
                 var params = new URLSearchParams(window.location.search);
                 var productId = params.get('id');
 
+                // Nếu không có ?id= trong URL — người dùng vào thẳng product.html
                 if (!productId) {
                     document.getElementById('productDetail').innerHTML =
                         '<div class="col-12"><div class="empty-state"><h3>Không tìm thấy sản phẩm</h3><p><a href="index.html">Quay lại trang chủ</a></p></div></div>';
                     return;
                 }
 
+                // Fetch toàn bộ danh mục sản phẩm từ file JSON tĩnh
                 fetch('data/products.json')
                     .then(function (res) { return res.json(); })
                     .then(function (products) {
+                        // Tìm sản phẩm khớp với ID từ URL
                         var product = products.find(function (p) { return p.id === productId; });
+
+                        // Nếu ID không khớp với sản phẩm nào trong JSON
                         if (!product) {
                             document.getElementById('productDetail').innerHTML =
                                 '<div class="col-12"><div class="empty-state"><h3>Sản phẩm không tồn tại</h3><p><a href="index.html">Quay lại trang chủ</a></p></div></div>';
                             return;
                         }
 
+                        // Cập nhật tiêu đề tab trình duyệt với tên sản phẩm thực
                         document.title = product.title + ' - ' + product.artist + ' | K-Pop Store';
+
+                        // Cập nhật breadcrumb với tên sản phẩm
                         document.getElementById('breadcrumbTitle').textContent = product.title;
 
+                        // Render layout chi tiết sản phẩm — 2 cột: ảnh | thông tin
                         document.getElementById('productDetail').innerHTML =
+                            // Cột trái: Ảnh bìa album
                             '<div class="col-md-6">' +
                             '<div class="detail-image"><img src="' + product.cover + '" alt="' + product.title + '"></div>' +
                             '</div>' +
+                            // Cột phải: Thông tin chi tiết
                             '<div class="col-md-6">' +
                             '<div class="pt-2">' +
+                            // Tên nghệ sĩ (sub-heading nhỏ hơn tiêu đề)
                             '<div class="detail-artist">' + product.artist + '</div>' +
+                            // Tên album/bài hát — dùng h1 vì đây là heading chính của trang
                             '<h1 class="detail-title">' + product.title + '</h1>' +
+                            // Badge loại sản phẩm: Album / Single / EP...
                             '<span class="detail-type">' + product.type + '</span>' +
+                            // Giá sản phẩm
                             '<div class="detail-price mt-3">' + Cart.formatPrice(product.price) + '</div>' +
+                            // Các định dạng file (MP3, FLAC...) hiển thị dạng badge
                             '<div class="detail-formats">' +
                             product.format.map(function (f) { return '<span>' + f + '</span>'; }).join('') +
                             '</div>' +
+                            // Các nút hành động
                             '<div class="detail-actions">' +
+                            // Nút thêm vào giỏ — listener gắn bên dưới sau khi DOM được tạo
                             '<button class="btn-pill btn-pill-filled" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>' +
+                            // Nút quay về mua tiếp
                             '<a href="index.html" class="btn-pill btn-pill-outline"><i class="fas fa-arrow-left"></i> Tiếp tục mua sắm</a>' +
                             '</div>' +
+                            // Mô tả sản phẩm tự động sinh từ data
                             '<p class="detail-description">Nhạc số chất lượng cao từ ' + product.artist +
                             '. Có sẵn định dạng ' + product.format.join(', ') +
                             '. Tải về ngay sau khi thanh toán.</p>' +
                             '</div>' +
                             '</div>';
 
+                        // Gắn sự kiện cho nút "Thêm vào giỏ" sau khi đã render vào DOM
+                        // Cart.addToCart() xử lý thêm vào localStorage và hiển thị toast
                         document.getElementById('addToCartBtn').addEventListener('click', function () {
                             Cart.addToCart(product);
                         });
 
-                        // Render sản phẩm liên quan (cùng nghệ sĩ, trừ sản phẩm hiện tại)
+                        // ===== RENDER SẢN PHẨM LIÊN QUAN =====
+                        // Lọc sản phẩm cùng nghệ sĩ, loại trừ sản phẩm hiện tại
                         var related = products.filter(function (p) {
                             return p.artist === product.artist && p.id !== product.id;
                         });
+
+                        // Chỉ hiển thị section liên quan nếu thực sự có sản phẩm
                         if (related.length > 0) {
                             document.getElementById('relatedProducts').style.display = 'block';
+
+                            // Render card sản phẩm liên quan — dùng cùng cấu trúc card với index.html
                             document.getElementById('relatedGrid').innerHTML = related.map(function (p) {
                                 return '<div class="product-card">' +
+                                    // Ảnh bìa + badge loại — link đến trang chi tiết sản phẩm liên quan
                                     '<a href="product.html?id=' + p.id + '" class="card-image">' +
                                     '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">' +
                                     '<span class="card-type-badge">' + p.type + '</span>' +
                                     '</a>' +
+                                    // Thông tin card
                                     '<div class="card-body">' +
                                     '<div class="card-artist">' + p.artist + '</div>' +
                                     '<div class="card-title"><a href="product.html?id=' + p.id + '">' + p.title + '</a></div>' +
@@ -170,6 +271,8 @@
                     });
             })();
         </script>
+
+        <!-- chat.js: widget hỗ trợ khách hàng -->
         <script src="js/chat.js"></script>
     </body>
 </html>

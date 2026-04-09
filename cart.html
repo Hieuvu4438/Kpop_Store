@@ -1,24 +1,55 @@
 <!doctype html>
 <html lang="vi">
     <head>
+        <!-- =====================================================================
+             TRANG GIỎ HÀNG — K-Pop Music Store (cart.html)
+             Chức năng: Hiển thị danh sách sản phẩm trong giỏ (localStorage),
+             cho phép thay đổi số lượng, xóa sản phẩm và chuyển sang trang
+             checkout. Toàn bộ giao diện giỏ hàng được render bởi inline JS.
+             
+             Luồng dữ liệu:
+               cart.js → Cart.getCart() → renderCart() → DOM #cartContent
+               changeQty(id, delta) → Cart.updateQuantity() → renderCart()
+               removeItem(id) → Cart.removeFromCart() → renderCart()
+        ====================================================================== -->
+
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Giỏ hàng - K-Pop Store</title>
+
+        <!-- Favicon SVG — dùng chung toàn site -->
         <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+
+        <!-- SEO: mô tả trang giỏ hàng -->
         <meta name="description" content="Xem và quản lý giỏ hàng của bạn tại K-Pop Music Store." />
+
+        <!-- Bootstrap CSS — framework layout/utility -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+        <!-- Font Awesome — icon giỏ hàng, plus, minus, times... -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+        <!-- CSS tùy biến — theme, bento, button styles... -->
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/components.css" />
         <link rel="stylesheet" href="css/responsive.css" />
     </head>
     <body>
+
+        <!-- ===================================================================
+             NAVBAR — Thanh điều hướng dính, dùng lại cấu trúc chung.
+             Không có nav-link "active" vì cart không phải trang trong menu chính.
+             #cartBadge cập nhật số giỏ hàng bởi cart.js khi DOMContentLoaded.
+        =================================================================== -->
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container">
                 <a class="navbar-brand text-upper" href="index.html">K-Pop Store</a>
+
+                <!-- Hamburger button thu gọn menu trên mobile -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <ul class="navbar-nav align-items-center gap-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
@@ -34,19 +65,33 @@
             </div>
         </nav>
 
+        <!-- ===================================================================
+             NỘI DUNG CHÍNH — Khung giỏ hàng
+             #cartContent: điểm gắn DOM, nội dung được inject hoàn toàn bởi JS.
+             Hai trạng thái có thể:
+               - Giỏ rỗng: hiển thị empty-state với link quay về trang chủ.
+               - Có hàng: layout 2 cột (col-lg-8 danh sách | col-lg-4 tóm tắt).
+        =================================================================== -->
         <main>
             <div class="container">
+                <!-- Tiêu đề trang + breadcrumb -->
                 <div class="page-header">
                     <h1>Giỏ hàng</h1>
                     <div class="breadcrumb-custom"><a href="index.html">Trang chủ</a> / Giỏ hàng</div>
                 </div>
+
+                <!-- Container rỗng — JS sẽ inject HTML vào đây sau khi tính toán giỏ hàng -->
                 <div id="cartContent"></div>
             </div>
         </main>
 
+        <!-- ===================================================================
+             FOOTER RÚT GỌN — 3 cột: Giới thiệu, Liên kết, Liên hệ
+        =================================================================== -->
         <footer class="footer">
             <div class="container">
                 <div class="row">
+                    <!-- Cột 1: Thương hiệu + mạng xã hội -->
                     <div class="col-md-4 mb-3">
                         <h5>K-Pop Store</h5>
                         <p>Cửa hàng nhạc số K-Pop hàng đầu.</p>
@@ -57,6 +102,8 @@
                             <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
+
+                    <!-- Cột 2: Liên kết nội bộ nhanh -->
                     <div class="col-md-3 mb-3">
                         <h5>Liên kết</h5>
                         <ul>
@@ -66,29 +113,53 @@
                             <li><a href="contact.html">Liên hệ</a></li>
                         </ul>
                     </div>
+
+                    <!-- Cột 3: Thông tin liên hệ -->
                     <div class="col-md-3 mb-3">
                         <h5>Liên hệ</h5>
                         <p>Email: hello@kpopstore.vn</p>
                         <p>Hotline: 0909 123 456</p>
                     </div>
                 </div>
+
                 <div class="footer-bottom">
                     <p>&copy; 2026 K-Pop Store. Được tạo với <i class="fas fa-heart"></i> bởi những người yêu nhạc Hàn.</p>
                 </div>
             </div>
         </footer>
 
+        <!-- Toast container dùng chung — showToast() từ cart.js inject vào đây -->
         <div class="toast-container" id="toastContainer"></div>
 
+        <!-- Bootstrap Bundle JS — collapse navbar -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- cart.js: phải nạp trước inline script bên dưới vì cần Cart API.
+             Cung cấp: Cart.getCart(), Cart.updateQuantity(), Cart.removeFromCart(),
+                       Cart.getCartCount(), Cart.getCartTotal(), Cart.formatPrice(), showToast() -->
         <script src="js/cart.js"></script>
+
         <script>
+            /**
+             * Inline script quản lý giao diện giỏ hàng.
+             * Dùng IIFE để tránh ô nhiễm global scope.
+             * Hai hàm được expose ra global (window.*) vì onclick="" trong HTML
+             * injection cần gọi được chúng từ global scope.
+             */
             (function () {
                 var cartContent = document.getElementById('cartContent');
 
+                /**
+                 * renderCart() — Vẽ lại toàn bộ giao diện giỏ hàng.
+                 * Được gọi: lần đầu load trang, sau mỗi thay đổi qty, sau mỗi xóa.
+                 * Hai nhánh:
+                 *   - items.length === 0 → hiển thị empty-state
+                 *   - items.length > 0  → hiển thị danh sách + bảng tóm tắt đơn hàng
+                 */
                 function renderCart() {
-                    var items = Cart.getCart();
+                    var items = Cart.getCart(); // Lấy mảng sản phẩm từ localStorage
 
+                    // Trường hợp giỏ rỗng: hiển thị icon + gợi ý mua sắm
                     if (items.length === 0) {
                         cartContent.innerHTML =
                             '<div class="empty-state">' +
@@ -100,15 +171,21 @@
                         return;
                     }
 
+                    // Tạo HTML cho từng sản phẩm trong giỏ
+                    // Mỗi item có: ảnh bìa, tên, nghệ sĩ, bộ điều chỉnh qty, giá * qty, nút xóa
                     var itemsHTML = items
                         .map(function (item) {
                             return (
                                 '<div class="cart-item">' +
+                                // Ảnh bìa album
                                 '<div class="cart-item-image"><img src="' + item.cover + '" alt="' + item.title + '"></div>' +
+                                // Thông tin sản phẩm: tên + nghệ sĩ
                                 '<div class="cart-item-info">' +
                                 '<h4>' + item.title + '</h4>' +
                                 '<p>' + item.artist + '</p>' +
                                 '</div>' +
+                                // Bộ điều chỉnh số lượng: nút - | số | nút +
+                                // onclick gọi window.changeQty() được định nghĩa bên dưới
                                 '<div class="cart-item-qty">' +
                                 '<div class="qty-selector">' +
                                 '<button onclick="changeQty(\'' + item.id + '\', -1)"><i class="fas fa-minus"></i></button>' +
@@ -116,42 +193,63 @@
                                 '<button onclick="changeQty(\'' + item.id + '\', 1)"><i class="fas fa-plus"></i></button>' +
                                 '</div>' +
                                 '</div>' +
+                                // Giá tổng = đơn giá × số lượng
                                 '<div class="cart-item-price">' + Cart.formatPrice(item.price * item.qty) + '</div>' +
+                                // Nút xóa sản phẩm khỏi giỏ
                                 '<button class="cart-item-remove" onclick="removeItem(\'' + item.id + '\')" title="Xóa"><i class="fas fa-times"></i></button>' +
                                 '</div>'
                             );
                         })
                         .join('');
 
+                    // Layout 2 cột: Danh sách (8/12) | Tóm tắt đơn hàng (4/12)
                     cartContent.innerHTML =
                         '<div class="row g-4">' +
                         '<div class="col-lg-8">' + itemsHTML + '</div>' +
                         '<div class="col-lg-4">' +
                         '<div class="cart-summary">' +
                         '<h5 style="font-family: var(--font-heading); margin-bottom: 16px;">Đơn hàng</h5>' +
+                        // Số lượng sản phẩm tổng (tổng qty các item)
                         '<div class="summary-row"><span>Số lượng</span><span>' + Cart.getCartCount() + ' sản phẩm</span></div>' +
+                        // Tổng tiền
                         '<div class="summary-total"><span>Tổng cộng</span><span>' + Cart.formatPrice(Cart.getCartTotal()) + '</span></div>' +
+                        // CTA: chuyển sang trang thanh toán
                         '<a href="checkout.html" class="btn-pill btn-pill-filled btn-pill-block" style="margin-top: 20px;">Thanh toán</a>' +
+                        // Link quay về tiếp tục mua sắm
                         '<a href="index.html" class="btn-pill btn-pill-outline btn-pill-block" style="margin-top: 10px;"><i class="fas fa-arrow-left"></i> Tiếp tục mua sắm</a>' +
                         '</div>' +
                         '</div>' +
                         '</div>';
                 }
 
+                /**
+                 * changeQty(id, delta) — Thay đổi số lượng sản phẩm.
+                 * @param {string} id    - ID sản phẩm
+                 * @param {number} delta - +1 thêm, -1 bớt (nếu qty = 1 và delta = -1 thì xóa)
+                 * Expose ra window vì được gọi từ onclick inline trong HTML injection.
+                 */
                 window.changeQty = function (id, delta) {
-                    Cart.updateQuantity(id, delta);
-                    renderCart();
+                    Cart.updateQuantity(id, delta); // Cập nhật localStorage
+                    renderCart();                    // Re-render UI
                 };
 
+                /**
+                 * removeItem(id) — Xóa hoàn toàn sản phẩm khỏi giỏ hàng.
+                 * @param {string} id - ID sản phẩm cần xóa
+                 * Expose ra window vì được gọi từ onclick inline.
+                 */
                 window.removeItem = function (id) {
-                    Cart.removeFromCart(id);
-                    renderCart();
-                    showToast('Giỏ hàng', 'Đã xóa sản phẩm khỏi giỏ hàng.');
+                    Cart.removeFromCart(id);                               // Xóa trong localStorage
+                    renderCart();                                           // Re-render UI
+                    showToast('Giỏ hàng', 'Đã xóa sản phẩm khỏi giỏ hàng.'); // Thông báo xác nhận
                 };
 
+                // Render giỏ hàng ngay khi script chạy (DOM đã sẵn vì script ở cuối body)
                 renderCart();
             })();
         </script>
+
+        <!-- chat.js: widget hỗ trợ trực tuyến -->
         <script src="js/chat.js"></script>
     </body>
 </html>

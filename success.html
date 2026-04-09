@@ -1,28 +1,64 @@
 <!doctype html>
 <html lang="vi">
     <head>
+        <!-- =====================================================================
+             TRANG THANH TOÁN THÀNH CÔNG — K-Pop Music Store (success.html)
+             Chức năng: Xác nhận đơn hàng đã hoàn tất, hiển thị danh sách nhạc
+             đã mua kèm nút tải về MP3 và FLAC cho từng sản phẩm.
+             
+             Luồng vào trang này:
+               checkout.html → [checkout.js xác nhận] → redirect success.html
+             
+             Luồng dữ liệu:
+               Cart.getPurchased() → lấy danh sách đã mua từ sessionStorage/localStorage
+               → render #purchasedContent với download links
+             
+             Lưu ý: Download link hiện là mock (href="#" hoặc item.download nếu có).
+             Tích hợp backend thực cần thay bằng signed URL hoặc stream endpoint.
+        ====================================================================== -->
+
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Thanh toán thành công - K-Pop Store</title>
+
+        <!-- Favicon SVG dùng chung -->
         <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+
+        <!-- SEO: thông báo thành công để crawler biết trang mục đích -->
         <meta name="description" content="Thanh toán thành công! Tải nhạc số K-Pop chất lượng cao ngay bây giờ." />
+
+        <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+        <!-- Font Awesome — icon check, download, music, arrow-left... -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+        <!-- CSS tùy biến -->
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/components.css" />
         <link rel="stylesheet" href="css/responsive.css" />
     </head>
     <body>
+
+        <!-- ===================================================================
+             NAVBAR — Dùng lại cấu trúc điều hướng chung.
+             Sau khi thanh toán, giỏ hàng đã được xóa → badge hiển thị 0.
+             Người dùng có thể tiếp tục mua sắm hoặc về trang chủ.
+        =================================================================== -->
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container">
                 <a class="navbar-brand text-upper" href="index.html">K-Pop Store</a>
+
+                <!-- Hamburger button mobile -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <ul class="navbar-nav align-items-center gap-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+                        <!-- Giỏ hàng badge — sẽ hiển thị 0 vì cart đã được clear sau checkout -->
                         <li class="nav-item">
                             <a class="cart-nav-link" href="cart.html">
                                 <i class="fas fa-shopping-cart"></i> Giỏ hàng <span class="cart-badge" id="cartBadge">0</span>
@@ -33,16 +69,35 @@
             </div>
         </nav>
 
+        <!-- ===================================================================
+             NỘI DUNG CHÍNH — Trang xác nhận đơn hàng thành công
+             Bố cục:
+               1. Success box: icon check + tiêu đề + mô tả ngắn
+               2. #purchasedContent: danh sách nhạc đã mua + nút tải MP3/FLAC
+               3. Nút "Tiếp tục mua sắm"
+        =================================================================== -->
         <main>
             <div class="container">
+
+                <!-- ===== SUCCESS BOX =====
+                     Hộp xác nhận thành công đặt ở đầu để người dùng ngay lập tức
+                     nhận được phản hồi tích cực. success-icon và success-box
+                     được định nghĩa trong components.css.
+                -->
                 <div class="success-box">
+                    <!-- Icon dấu check — CSS animation có thể được gắn vào qua components.css -->
                     <div class="success-icon"><i class="fas fa-check"></i></div>
                     <h2>Thanh toán thành công!</h2>
                     <p>Cảm ơn bạn đã mua hàng. Hãy tải nhạc và thưởng thức ngay!</p>
                 </div>
 
+                <!-- Container danh sách nhạc đã mua — JS render vào đây.
+                     Hai trạng thái:
+                       - Không có dữ liệu đã mua: hiển thị empty-state (người dùng vào thẳng URL)
+                       - Có dữ liệu: mỗi item hiển thị ảnh bìa, tên, nghệ sĩ, nút tải MP3/FLAC -->
                 <div id="purchasedContent"></div>
 
+                <!-- Nút quay về trang chủ để tiếp tục mua sắm -->
                 <div class="text-center mt-5 mb-4">
                     <a href="index.html" class="btn-pill btn-pill-outline">
                         <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
@@ -51,6 +106,10 @@
             </div>
         </main>
 
+        <!-- ===================================================================
+             FOOTER RÚT GỌN — Chỉ gồm dòng bản quyền.
+             Trang success tập trung vào trải nghiệm download, không cần footer phức tạp.
+        =================================================================== -->
         <footer class="footer">
             <div class="container">
                 <div class="footer-bottom">
@@ -59,31 +118,49 @@
             </div>
         </footer>
 
+        <!-- Toast container — hiển thị thông báo nếu cần -->
         <div class="toast-container" id="toastContainer"></div>
 
+        <!-- Bootstrap Bundle JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- cart.js: nạp trước — cung cấp Cart.getPurchased() và cập nhật badge (=0 sau checkout) -->
         <script src="js/cart.js"></script>
+
         <script>
+            /**
+             * Inline script render danh sách nhạc đã mua.
+             * Dùng IIFE để tránh ô nhiễm global scope.
+             */
             (function () {
+                // Lấy danh sách sản phẩm đã mua từ cart.js
+                // Cart.getPurchased() đọc từ sessionStorage hoặc biến tạm sau checkout
                 var items = Cart.getPurchased();
                 var content = document.getElementById('purchasedContent');
 
+                // Trường hợp không có dữ liệu — người dùng vào thẳng URL /success.html
                 if (items.length === 0) {
                     content.innerHTML =
                         '<div class="empty-state"><h3>Không có sản phẩm nào</h3><p>Bạn chưa mua sản phẩm nào.</p></div>';
                     return;
                 }
 
+                // Tiêu đề section danh sách nhạc
                 var html = '<h3 class="section-title mt-4"><i class="fas fa-music"></i> Nhạc của bạn</h3>';
 
+                // Tạo HTML cho từng sản phẩm đã mua
                 items.forEach(function (item) {
                     html +=
                         '<div class="download-item">' +
+                        // Ảnh bìa album nhỏ bên trái
                         '<div class="cart-item-image"><img src="' + item.cover + '" alt="' + item.title + '"></div>' +
+                        // Thông tin: tên bài hát + nghệ sĩ
                         '<div class="download-info">' +
                         '<h4>' + item.title + '</h4>' +
                         '<p>' + item.artist + '</p>' +
                         '</div>' +
+                        // Nút tải xuống — hai nút: MP3 (filled) và FLAC (outline)
+                        // item.download là URL tải thực (mock: '#' nếu không có)
                         '<div class="download-actions">' +
                         '<a href="' + (item.download || '#') + '" class="btn-pill btn-pill-filled btn-pill-sm"><i class="fas fa-download"></i> MP3</a>' +
                         '<a href="' + (item.download || '#') + '" class="btn-pill btn-pill-outline btn-pill-sm"><i class="fas fa-download"></i> FLAC</a>' +
@@ -91,9 +168,12 @@
                         '</div>';
                 });
 
+                // Inject toàn bộ HTML đã tạo vào container
                 content.innerHTML = html;
             })();
         </script>
+
+        <!-- chat.js: widget hỗ trợ khách hàng -->
         <script src="js/chat.js"></script>
     </body>
 </html>

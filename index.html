@@ -1,41 +1,68 @@
 <!doctype html>
 <html lang="vi">
     <head>
+        <!-- =====================================================================
+             TRANG CHỦ — K-Pop Music Store (index.html)
+             Chức năng: Landing page chính, hiển thị carousel banner, hero bento,
+             danh sách sản phẩm (render bằng JS), bản đồ và footer.
+             Luồng dữ liệu: products.js fetch data/products.json → render #productGrid
+        ====================================================================== -->
+
         <meta charset="UTF-8" />
+        <!-- Responsive: đảm bảo layout co giãn đúng trên mọi thiết bị -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>K-Pop Music Store — Cửa Hàng Nhạc Số K-Pop</title>
+
+        <!-- Favicon dạng SVG — nhẹ và sắc nét trên mọi màn hình mật độ cao -->
         <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+
+        <!-- SEO: Mô tả trang cho công cụ tìm kiếm -->
         <meta
             name="description"
             content="Cửa hàng nhạc số K-Pop — Mua album và bài hát từ BLACKPINK, BTS, NewJeans và nhiều hơn nữa. Tải nhạc chất lượng cao MP3 & FLAC."
         />
+
+        <!-- Open Graph: hiển thị thẻ đẹp khi chia sẻ lên mạng xã hội -->
         <meta property="og:title" content="K-Pop Music Store — Cửa Hàng Nhạc Số K-Pop" />
         <meta property="og:description" content="Khám phá và sở hữu những bản hit đỉnh nhất từ các nghệ sĩ hàng đầu Hàn Quốc." />
         <meta property="og:type" content="website" />
+
         <!-- Bootstrap được nạp trước để có sẵn utility/layout trước khi các style tùy biến ghi đè -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <!-- Font Awesome Free CDN -->
+
+        <!-- Font Awesome Free CDN — cung cấp icon cho toàn bộ trang -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
         <!-- CSS tùy biến được nạp sau cùng để chủ động ghi đè mặc định của framework -->
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/components.css" />
-        <link rel="stylesheet" href="css/responsive.css" />
+        <link rel="stylesheet" href="css/style.css" />       <!-- Biến CSS, typography, màu sắc theme -->
+        <link rel="stylesheet" href="css/components.css" />  <!-- Card sản phẩm, badge, toast, carousel... -->
+        <link rel="stylesheet" href="css/responsive.css" />  <!-- Media queries thích ứng màn hình nhỏ -->
     </head>
     <body>
-        <!-- Thanh điều hướng dính giúp nút vào giỏ luôn hiển thị khi người dùng duyệt danh mục dài -->
+
+        <!-- ===================================================================
+             NAVBAR — Thanh điều hướng dính (sticky-top)
+             Luôn hiển thị khi cuộn, giúp người dùng truy cập nhanh giỏ hàng.
+             #cartBadge: số lượng sản phẩm trong giỏ, được cart.js cập nhật.
+        =================================================================== -->
         <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container">
+                <!-- Logo / Brand — liên kết về trang chủ -->
                 <a class="navbar-brand text-upper" href="index.html">K-Pop Store</a>
 
+                <!-- Nút hamburger hiển thị khi màn hình < lg (Bootstrap collapse) -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                <!-- Menu điều hướng — collapse trên mobile, hiển thị ngang trên desktop -->
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <ul class="navbar-nav align-items-center gap-1">
+                        <!-- class="active" đánh dấu trang hiện tại -->
                         <li class="nav-item">
                             <a class="nav-link active" href="index.html">Trang chủ</a>
                         </li>
+                        <!-- Anchor link cuộn đến khu vực sản phẩm trên cùng trang -->
                         <li class="nav-item">
                             <a class="nav-link" href="#productSection">Bộ sưu tập</a>
                         </li>
@@ -45,6 +72,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="contact.html">Liên hệ</a>
                         </li>
+                        <!-- Nút giỏ hàng: cart-badge hiển thị số lượng, cập nhật bởi cart.js -->
                         <li class="nav-item">
                             <a class="cart-nav-link" href="cart.html">
                                 <i class="fas fa-shopping-cart"></i> Giỏ hàng <span class="cart-badge" id="cartBadge">0</span>
@@ -55,26 +83,45 @@
             </div>
         </nav>
 
-        <!-- Nội dung chính ưu tiên khám phá sản phẩm trước hành động thanh toán -->
+        <!-- ===================================================================
+             NỘI DUNG CHÍNH
+             Bố cục: Carousel Banner → Hero Bento → Khu vực sản phẩm → Bản đồ
+        =================================================================== -->
         <main>
             <div class="container">
-                <!-- ===== CAROUSEL BANNER ===== -->
+
+                <!-- ===== CAROUSEL BANNER =====
+                     Slider tự động chạy (data-bs-ride="carousel"), 3 slides:
+                     Slide 1: Ảnh hero banner chính
+                     Slide 2: Ảnh khuyến mãi / album mới
+                     Slide 3: Background gradient thuần CSS (không cần ảnh)
+                     Dùng để thu hút sự chú ý và truyền đạt thông điệp nhanh.
+                -->
                 <section class="carousel-section mt-3">
                     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+
+                        <!-- Chấm chỉ thị slide hiện tại — Bootstrap tự quản lý active state -->
                         <div class="carousel-indicators">
                             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
                             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
                             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
                         </div>
+
+                        <!-- Wrapper nội dung slides — bo góc theo biến CSS --radius-box -->
                         <div class="carousel-inner" style="border-radius: var(--radius-box); border: var(--border); overflow: hidden;">
+
+                            <!-- SLIDE 1: Banner chính với ảnh toàn chiều rộng -->
                             <div class="carousel-item active">
                                 <img src="assets/images/hero-banner.png" class="d-block w-100" alt="K-Pop Music Store Banner" style="height: 360px; object-fit: cover;" />
                                 <div class="carousel-caption">
                                     <h2 style="font-family: var(--font-heading); font-size: 2rem;">Nhạc Số K-Pop Chất Lượng Cao</h2>
                                     <p>Tải ngay album mới nhất từ các nghệ sĩ hàng đầu</p>
+                                    <!-- CTA cuộn xuống khu vực sản phẩm -->
                                     <a href="#productSection" class="btn-pill btn-pill-filled">Khám phá ngay</a>
                                 </div>
                             </div>
+
+                            <!-- SLIDE 2: Banner khuyến mãi / nghệ sĩ nổi bật -->
                             <div class="carousel-item">
                                 <img src="assets/images/promo-banner.png" class="d-block w-100" alt="Khuyến mãi K-Pop" style="height: 360px; object-fit: cover;" />
                                 <div class="carousel-caption">
@@ -83,14 +130,19 @@
                                     <a href="#productSection" class="btn-pill btn-pill-outline" style="color: #fff; border-color: #fff;">Xem ngay</a>
                                 </div>
                             </div>
+
+                            <!-- SLIDE 3: Thuần CSS gradient — không phụ thuộc ảnh, nhanh tải -->
                             <div class="carousel-item" style="background: linear-gradient(135deg, #111 0%, #333 100%); height: 360px;">
+                                <!-- Caption căn giữa dọc bằng bottom+transform -->
                                 <div class="carousel-caption" style="bottom: 50%; transform: translateY(50%);">
-                                    <h2 style="font-family: var(--font-heading); font-size: 2.5rem; color: #fff;">Định dạng MP3 & FLAC</h2>
+                                    <h2 style="font-family: var(--font-heading); font-size: 2.5rem; color: #fff;">Định dạng MP3 &amp; FLAC</h2>
                                     <p style="color: #ccc;">Chất lượng âm thanh cao cấp — Tải về tức thì sau thanh toán</p>
                                     <a href="#productSection" class="btn-pill btn-pill-filled">Mua ngay</a>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Nút điều hướng slide trái/phải -->
                         <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon"></span>
                         </button>
@@ -100,19 +152,26 @@
                     </div>
                 </section>
 
-                <!-- Khối hero dạng Bento giới thiệu thương hiệu nhanh mà không đẩy sản phẩm xuống dưới màn hình đầu -->
+                <!-- ===== HERO BENTO =====
+                     Bố cục "Bento Box" giới thiệu thương hiệu + trust signals.
+                     Cột trái: Tiêu đề lớn + mô tả ngắn
+                     Cột phải: Tag floating nhấn mạnh đặc điểm sản phẩm
+                     Hàng dưới: 4 stat box (150+ bài, 6 nghệ sĩ, MP3/FLAC, 24/7)
+                -->
                 <section class="hero-bento">
                     <div class="row g-3">
                         <!-- Tiêu đề tương phản cao giúp quét nội dung nhanh hơn trên màn hình nhỏ -->
                         <div class="col-lg-7">
                             <div class="bento-box-transparent">
+                                <!-- h1 duy nhất trên trang — quan trọng cho SEO -->
                                 <h1 class="heading-xl">CỬA HÀNG NHẠC SỐ <span class="pill-keyword">K-POP</span> HÀNG ĐẦU</h1>
                                 <p class="hero-subtitle mt-3">
                                     Khám phá và sở hữu những bản hit đỉnh nhất từ các nghệ sĩ hàng đầu Hàn Quốc. Tải nhạc chất lượng cao ngay hôm nay.
                                 </p>
                             </div>
                         </div>
-                        <!-- Kiểu tag xen kẽ giúp nhấn đặc tính sản phẩm trước khi người dùng mở trang chi tiết -->
+
+                        <!-- Kiểu tag xen kẽ nổi bật — .filled = màu đậm, mặc định = outline -->
                         <div class="col-lg-5 d-flex align-items-center">
                             <div class="floating-tags">
                                 <span class="floating-tag">Chính hãng</span>
@@ -125,26 +184,30 @@
                         </div>
                     </div>
 
-                    <!-- Tín hiệu tin cậy được hiển thị sớm để giảm do dự trước lần thêm giỏ đầu tiên -->
+                    <!-- Trust signals: hiển thị số liệu thuyết phục trước khi người dùng thêm giỏ -->
                     <div class="row g-3 mt-2">
+                        <!-- Stat 1: Bài hát -->
                         <div class="col-6 col-md-3">
                             <div class="bento-box text-center">
                                 <div class="stat-number">150+</div>
                                 <div class="stat-label">Bài hát</div>
                             </div>
                         </div>
+                        <!-- Stat 2: Nghệ sĩ — dùng bento-box-dark để tạo tương phản xen kẽ -->
                         <div class="col-6 col-md-3">
                             <div class="bento-box bento-box-dark text-center">
                                 <div class="stat-number">6</div>
                                 <div class="stat-label">Nghệ sĩ</div>
                             </div>
                         </div>
+                        <!-- Stat 3: Định dạng file -->
                         <div class="col-6 col-md-3">
                             <div class="bento-box text-center">
                                 <div class="stat-number">MP3</div>
-                                <div class="stat-label">& FLAC</div>
+                                <div class="stat-label">&amp; FLAC</div>
                             </div>
                         </div>
+                        <!-- Stat 4: Giao hàng tự động 24/7 -->
                         <div class="col-6 col-md-3">
                             <div class="bento-box text-center">
                                 <div class="stat-number">24/7</div>
@@ -154,16 +217,27 @@
                     </div>
                 </section>
 
-                <!-- ===== KHU VỰC SẢN PHẨM ===== -->
+                <!-- ===== KHU VỰC SẢN PHẨM =====
+                     id="productSection" — anchor từ navbar và CTA carousel.
+                     Toàn bộ nội dung được render động bởi products.js:
+                       1. Fetch data/products.json
+                       2. Sinh filter buttons theo danh sách nghệ sĩ
+                       3. Render product cards vào #productGrid
+                     Tìm kiếm (#searchInput) và sắp xếp (#sortSelect) cũng
+                     được products.js lắng nghe và lọc lại ngay lập tức.
+                -->
                 <section id="productSection">
-                    <!-- Ô tìm kiếm + Sắp xếp -->
+
+                    <!-- Thanh tìm kiếm + dropdown sắp xếp -->
                     <div class="row mt-4 mb-3 align-items-center">
+                        <!-- Ô tìm kiếm kiểu pill — icon kính lúp trang trí -->
                         <div class="col-md-6 col-lg-4 mb-2 mb-md-0">
                             <div class="search-pill">
                                 <span class="search-icon"><i class="fas fa-search"></i></span>
                                 <input type="text" id="searchInput" placeholder="Tìm kiếm bài hát, nghệ sĩ..." />
                             </div>
                         </div>
+                        <!-- Dropdown sắp xếp — ms-lg-auto đẩy sang phải trên desktop -->
                         <div class="col-md-6 col-lg-4 ms-lg-auto">
                             <div class="sort-bar">
                                 <label for="sortSelect" class="sort-label"><i class="fas fa-sort-amount-down"></i> Sắp xếp:</label>
@@ -178,18 +252,21 @@
                         </div>
                     </div>
 
-                    <!-- Bộ lọc sinh theo dữ liệu để tránh lệch khi danh sách nghệ sĩ đổi trong JSON -->
+                    <!-- Bộ lọc nghệ sĩ — sinh tự động bởi products.js dựa trên data JSON
+                         Nút "Tất cả" luôn có sẵn, các nút nghệ sĩ thêm vào sau khi fetch xong -->
                     <div class="filter-bar" id="filterBar">
                         <span class="filter-label">Lọc:</span>
                         <button class="filter-btn active" data-filter="all">Tất cả</button>
+                        <!-- Các nút nghệ sĩ được chèn vào đây bởi products.js -->
                     </div>
 
-                    <!-- Thẻ sản phẩm render bằng JS để dùng chung một nguồn dữ liệu cho tìm kiếm và lọc -->
+                    <!-- Grid sản phẩm — rỗng khi tải trang, được render bởi products.js -->
                     <div class="product-grid" id="productGrid">
                         <!-- Được render bằng JS -->
                     </div>
 
-                    <!-- Trạng thái rỗng giữ nguyên ngữ cảnh tương tác thay vì chuyển hướng người dùng đi nơi khác -->
+                    <!-- Trạng thái rỗng hiển thị khi tìm kiếm không có kết quả
+                         JS toggle display:block/none trên phần tử này -->
                     <div class="empty-state" id="emptyState" style="display: none">
                         <div class="empty-icon"><i class="fas fa-music"></i></div>
                         <h3>Không tìm thấy kết quả</h3>
@@ -197,7 +274,11 @@
                     </div>
                 </section>
 
-                <!-- Bản đồ tải lười để không chặn bước khám phá sản phẩm ban đầu bởi iframe bên thứ ba -->
+                <!-- ===== BẢN ĐỒ CỬA HÀNG =====
+                     loading="lazy": iframe chỉ tải khi người dùng cuộn đến,
+                     tránh chặn hiệu suất tải sản phẩm ở trên.
+                     referrerpolicy: bảo mật, không gửi referrer ra ngoài.
+                -->
                 <section class="map-section">
                     <h2><i class="fas fa-map-marker-alt"></i> Địa chỉ cửa hàng</h2>
                     <div class="bento-box" style="padding: 0">
@@ -213,10 +294,14 @@
             </div>
         </main>
 
-        <!-- Footer đầy đủ với liên kết mạng xã hội và form đăng ký nhận tin -->
+        <!-- ===================================================================
+             FOOTER — 4 cột: Giới thiệu, Liên kết, Nghệ sĩ, Đăng ký nhận tin
+             Newsletter form: onsubmit thuần HTML, gọi showToast() từ cart.js
+        =================================================================== -->
         <footer class="footer">
             <div class="container">
                 <div class="row">
+                    <!-- Cột 1: Mô tả shop + icon mạng xã hội -->
                     <div class="col-md-4 mb-4">
                         <h5>K-Pop Store</h5>
                         <p>Cửa hàng nhạc số K-Pop hàng đầu. Mua và tải nhạc chất lượng cao từ các nghệ sĩ yêu thích.</p>
@@ -228,6 +313,8 @@
                             <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
+
+                    <!-- Cột 2: Điều hướng nội bộ nhanh -->
                     <div class="col-6 col-md-2 mb-4">
                         <h5>Liên kết</h5>
                         <ul>
@@ -237,6 +324,8 @@
                             <li><a href="contact.html">Liên hệ</a></li>
                         </ul>
                     </div>
+
+                    <!-- Cột 3: Link danh mục theo nghệ sĩ (hiện tại href="#" placeholder) -->
                     <div class="col-6 col-md-3 mb-4">
                         <h5>Nghệ sĩ</h5>
                         <ul>
@@ -248,6 +337,11 @@
                             <li><a href="#">LE SSERAFIM</a></li>
                         </ul>
                     </div>
+
+                    <!-- Cột 4: Form đăng ký nhận tin
+                         onsubmit: preventDefault ngăn reload trang,
+                         showToast() hiển thị thông báo xác nhận từ cart.js,
+                         this.reset() xóa nội dung input sau khi submit. -->
                     <div class="col-md-3 mb-4">
                         <h5>Đăng ký nhận tin</h5>
                         <p>Nhận thông báo về album mới và khuyến mãi.</p>
@@ -263,37 +357,51 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Dòng bản quyền cuối footer -->
                 <div class="footer-bottom">
                     <p>&copy; 2026 K-Pop Store. Được tạo với <i class="fas fa-heart"></i> bởi những người yêu nhạc Hàn.</p>
                 </div>
             </div>
         </footer>
 
-        <!-- Nút cuộn lên đầu trang -->
+        <!-- Nút cuộn lên đầu trang — ẩn mặc định, hiện khi scrollY > 400px (xem JS bên dưới) -->
         <button class="scroll-to-top" id="scrollToTop" title="Lên đầu trang">
             <i class="fas fa-chevron-up"></i>
         </button>
 
-        <!-- Điểm gắn toast dùng chung giúp mọi trang hiển thị phản hồi bằng cùng một hàm hỗ trợ -->
+        <!-- Container toast thông báo dùng chung — showToast() từ cart.js gắn phần tử vào đây -->
         <div class="toast-container" id="toastContainer"></div>
 
-        <!-- Bootstrap bundle bật hành vi thu gọn navbar mà không cần JS tự viết -->
+        <!-- Bootstrap Bundle: bao gồm Popper.js, xử lý collapse navbar và carousel -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Nạp cart trước products để thao tác sản phẩm gọi API Cart an toàn -->
+
+        <!-- cart.js nạp trước: khởi tạo Cart API (localStorage) và hàm showToast()
+             products.js cần Cart đã sẵn sàng để gọi Cart.addToCart() -->
         <script src="js/cart.js"></script>
+
+        <!-- products.js: fetch JSON, render lưới sản phẩm, bộ lọc, tìm kiếm, sắp xếp -->
         <script src="js/products.js"></script>
+
+        <!-- chat.js: widget chat hỗ trợ khách hàng trực tuyến -->
         <script src="js/chat.js"></script>
+
         <script>
-            // Nút cuộn lên đầu trang
+            // Xử lý nút cuộn lên đầu trang
+            // Dùng IIFE để không làm ô nhiễm global scope
             (function () {
                 var btn = document.getElementById('scrollToTop');
+
+                // Hiện/ẩn nút dựa trên vị trí cuộn — ngưỡng 400px
                 window.addEventListener('scroll', function () {
                     if (window.scrollY > 400) {
-                        btn.classList.add('show');
+                        btn.classList.add('show');     // CSS .show { opacity: 1; visibility: visible; }
                     } else {
                         btn.classList.remove('show');
                     }
                 });
+
+                // Cuộn mượt về đầu trang khi nhấn nút
                 btn.addEventListener('click', function () {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
