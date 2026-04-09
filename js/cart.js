@@ -37,7 +37,7 @@ var Cart = (function () {
         }
 
         saveCart(cart);
-        showToast('Gio hang', 'Da them "' + product.title + '" vao gio hang!');
+        showToast('Giỏ hàng', 'Đã thêm "' + product.title + '" vào giỏ hàng!');
         return true;
     }
 
@@ -83,7 +83,7 @@ var Cart = (function () {
     }
 
     function formatPrice(price) {
-        return price.toLocaleString('vi-VN') + ' VND';
+        return price.toLocaleString('vi-VN') + ' VNĐ';
     }
 
     function updateBadge() {

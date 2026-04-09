@@ -5,14 +5,14 @@
         '<button class="chat-toggle" id="chatToggle"><i class="fas fa-comment-dots"></i></button>' +
         '<div class="chatbox" id="chatbox">' +
         '<div class="chat-header">' +
-        '<h4>Ho tro khach hang</h4>' +
-        '<span class="chat-status"><i class="fas fa-circle" style="font-size: 0.5rem; color: #22c55e;"></i> Online</span>' +
+        '<h4>Hỗ trợ khách hàng</h4>' +
+        '<span class="chat-status"><i class="fas fa-circle" style="font-size: 0.5rem; color: #22c55e;"></i> Trực tuyến</span>' +
         '</div>' +
         '<div class="chat-messages" id="chatMessages">' +
-        '<div class="chat-msg bot">Xin chao! Ban can ho tro gi?</div>' +
+        '<div class="chat-msg bot">Xin chào! Bạn cần hỗ trợ gì?</div>' +
         '</div>' +
         '<div class="chat-input">' +
-        '<input type="text" id="chatInput" placeholder="Nhap tin nhan...">' +
+        '<input type="text" id="chatInput" placeholder="Nhập tin nhắn...">' +
         '<button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>' +
         '</div>' +
         '</div>';
@@ -52,7 +52,7 @@
             // Độ trễ nhỏ mô phỏng nhịp phản hồi của người thật để tin nhắn tự động bớt đột ngột.
             var botMsg = document.createElement('div');
             botMsg.className = 'chat-msg bot';
-            botMsg.textContent = 'Hien tai CSKH dang ban, vui long nhan tin sau. Cam on ban!';
+            botMsg.textContent = 'Hiện tại CSKH đang bận, vui lòng nhắn tin sau. Cảm ơn bạn!';
             messages.appendChild(botMsg);
             messages.scrollTop = messages.scrollHeight;
         }, 800);

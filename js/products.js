@@ -1,9 +1,10 @@
-/* ===== Sản phẩm: Tải, Render, Lọc, Tìm kiếm ===== */
+/* ===== Sản phẩm: Tải, Render, Lọc, Tìm kiếm, Sắp xếp ===== */
 
 (function () {
     var products = [];
     var currentFilter = 'all';
     var currentSearch = '';
+    var currentSort = 'default';
     // Số lượng được giữ theo từng thẻ để người dùng gom nhiều lựa chọn mà không cần mở từng trang chi tiết.
     var cardQty = {};
 
@@ -11,6 +12,7 @@
     var emptyState = document.getElementById('emptyState');
     var filterBar = document.getElementById('filterBar');
     var searchInput = document.getElementById('searchInput');
+    var sortSelect = document.getElementById('sortSelect');
 
     function loadProducts() {
         fetch('data/products.json')
@@ -27,7 +29,7 @@
                 renderProducts();
             })
             .catch(function () {
-                if (grid) grid.innerHTML = '<p style="color: var(--gray);">Khong the tai du lieu san pham.</p>';
+                if (grid) grid.innerHTML = '<p style="color: var(--gray);">Không thể tải dữ liệu sản phẩm.</p>';
             });
     }
 
@@ -64,8 +66,16 @@
         });
     }
 
+    // Sắp xếp sản phẩm
+    if (sortSelect) {
+        sortSelect.addEventListener('change', function () {
+            currentSort = this.value;
+            renderProducts();
+        });
+    }
+
     function getFilteredProducts() {
-        return products.filter(function (p) {
+        var filtered = products.filter(function (p) {
             var matchFilter = currentFilter === 'all' || p.artist === currentFilter;
             var matchSearch =
                 !currentSearch ||
@@ -74,6 +84,19 @@
                 p.genre.toLowerCase().indexOf(currentSearch) !== -1;
             return matchFilter && matchSearch;
         });
+
+        // Áp dụng sắp xếp
+        if (currentSort === 'price-asc') {
+            filtered.sort(function (a, b) { return a.price - b.price; });
+        } else if (currentSort === 'price-desc') {
+            filtered.sort(function (a, b) { return b.price - a.price; });
+        } else if (currentSort === 'name-asc') {
+            filtered.sort(function (a, b) { return a.title.localeCompare(b.title); });
+        } else if (currentSort === 'name-desc') {
+            filtered.sort(function (a, b) { return b.title.localeCompare(a.title); });
+        }
+
+        return filtered;
     }
 
     function renderProducts() {
@@ -95,47 +118,21 @@
                 var qty = cardQty[p.id] || 1;
                 return (
                     '<div class="product-card">' +
-                    '<a href="product.html?id=' +
-                    p.id +
-                    '" class="card-image">' +
-                    '<img src="' +
-                    p.cover +
-                    '" alt="' +
-                    p.title +
-                    '" loading="lazy">' +
-                    '<span class="card-type-badge">' +
-                    p.type +
-                    '</span>' +
+                    '<a href="product.html?id=' + p.id + '" class="card-image">' +
+                    '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">' +
+                    '<span class="card-type-badge">' + p.type + '</span>' +
                     '</a>' +
                     '<div class="card-body">' +
-                    '<div class="card-artist">' +
-                    p.artist +
-                    '</div>' +
-                    '<div class="card-title"><a href="product.html?id=' +
-                    p.id +
-                    '">' +
-                    p.title +
-                    '</a></div>' +
-                    '<div class="card-price">' +
-                    Cart.formatPrice(p.price) +
-                    '</div>' +
+                    '<div class="card-artist">' + p.artist + '</div>' +
+                    '<div class="card-title"><a href="product.html?id=' + p.id + '">' + p.title + '</a></div>' +
+                    '<div class="card-price">' + Cart.formatPrice(p.price) + '</div>' +
                     '<div class="qty-selector">' +
-                    '<button onclick="changeCardQty(\'' +
-                    p.id +
-                    '\', -1)"><i class="fas fa-minus"></i></button>' +
-                    '<span class="qty-value" id="qty-' +
-                    p.id +
-                    '">' +
-                    qty +
-                    '</span>' +
-                    '<button onclick="changeCardQty(\'' +
-                    p.id +
-                    '\', 1)"><i class="fas fa-plus"></i></button>' +
+                    '<button onclick="changeCardQty(\'' + p.id + '\', -1)"><i class="fas fa-minus"></i></button>' +
+                    '<span class="qty-value" id="qty-' + p.id + '">' + qty + '</span>' +
+                    '<button onclick="changeCardQty(\'' + p.id + '\', 1)"><i class="fas fa-plus"></i></button>' +
                     '</div>' +
-                    '<button class="btn-pill btn-pill-filled btn-pill-block" onclick="addProductToCart(\'' +
-                    p.id +
-                    '\')">' +
-                    '<i class="fas fa-cart-plus"></i> Add to Cart' +
+                    '<button class="btn-pill btn-pill-filled btn-pill-block" onclick="addProductToCart(\'' + p.id + '\')">' +
+                    '<i class="fas fa-cart-plus"></i> Thêm vào giỏ' +
                     '</button>' +
                     '</div>' +
                     '</div>'

@@ -1,5 +1,5 @@
 /* ===== Nạp Google Fonts ===== */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap');
 
 /* ===== Biến CSS - Editorial / Bento / Neo-Brutalism ===== */
 :root {
@@ -10,7 +10,7 @@
     --gray-light: #c8c3b8;
     --border-color: #111111;
 
-    --font-heading: 'DM Serif Display', Georgia, serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
     --radius-box: 24px;
@@ -268,12 +268,10 @@ h6 {
 }
 
 .floating-tag:nth-child(even) {
-    /* Nghiêng xen kẽ giúp hàng nhãn bớt cứng và đúng hướng thị giác dạng collage. */
     transform: rotate(-3deg);
 }
 
 .floating-tag:nth-child(odd) {
-    /* Xoay ngược chiều giúp nhịp thị giác cân bằng thay vì nghiêng hẳn một phía. */
     transform: rotate(2deg);
 }
 
@@ -324,6 +322,38 @@ h6 {
     background-color: var(--ink);
     color: var(--white);
     border-color: var(--ink);
+}
+
+/* ===== Thanh sắp xếp ===== */
+.sort-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--gray);
+    white-space: nowrap;
+}
+
+.sort-select {
+    flex: 1;
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    border: var(--border);
+    background: var(--white);
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    appearance: auto;
+}
+
+.sort-select:focus {
+    outline: none;
+    border-width: 2px;
 }
 
 /* ===== Lưới sản phẩm ===== */
@@ -386,6 +416,117 @@ h6 {
     font-size: 0.8rem;
 }
 
+/* ===== Social Links ===== */
+.social-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: var(--border);
+    color: var(--ink);
+    font-size: 0.85rem;
+    transition: all var(--transition);
+}
+
+.social-links a:hover {
+    background: var(--ink);
+    color: var(--white);
+    opacity: 1;
+}
+
+.social-links-lg a {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+}
+
+/* ===== Newsletter Form ===== */
+.newsletter-form {
+    margin-top: 12px;
+}
+
+.newsletter-input-group {
+    display: flex;
+    gap: 0;
+    border: var(--border);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+}
+
+.newsletter-input-group input {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-family: var(--font-body);
+    min-width: 0;
+}
+
+.newsletter-input-group input::placeholder {
+    color: var(--gray-light);
+}
+
+.newsletter-input-group input:focus {
+    outline: none;
+}
+
+.newsletter-input-group button {
+    padding: 8px 16px;
+    background: var(--ink);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: opacity var(--transition);
+}
+
+.newsletter-input-group button:hover {
+    opacity: 0.7;
+}
+
+/* ===== Nút cuộn lên đầu trang ===== */
+.scroll-to-top {
+    position: fixed;
+    bottom: 90px;
+    left: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--white);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    z-index: 1040;
+    transition: all var(--transition);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    transform: scale(1.1);
+}
+
 /* ===== Header trang (trang con) ===== */
 .page-header {
     padding: 30px 0 20px;
@@ -435,7 +576,6 @@ h6 {
 
 .search-pill input:focus {
     outline: none;
-    /* Dùng viền dày hơn làm tín hiệu focus chính sau khi tắt shadow của Bootstrap. */
     border-color: var(--ink);
     border-width: 2px;
 }
@@ -471,4 +611,97 @@ h6 {
     font-family: var(--font-heading);
     font-size: 1.6rem;
     margin-bottom: 16px;
+}
+
+/* ===== Form liên hệ ===== */
+.form-label-custom {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ink);
+    margin-bottom: 6px;
+}
+
+.form-input-custom {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: var(--border);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-family: var(--font-body);
+    transition: border-color var(--transition);
+}
+
+.form-input-custom:focus {
+    outline: none;
+    border-width: 2px;
+    border-color: var(--ink);
+}
+
+.form-input-custom::placeholder {
+    color: var(--gray-light);
+}
+
+textarea.form-input-custom {
+    resize: vertical;
+    min-height: 100px;
+}
+
+select.form-input-custom {
+    cursor: pointer;
+    appearance: auto;
+}
+
+/* ===== Thông tin liên hệ ===== */
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-info-item:last-child {
+    border-bottom: none;
+}
+
+.contact-info-item i {
+    color: var(--gray-light);
+    font-size: 1rem;
+    margin-top: 3px;
+    width: 20px;
+    text-align: center;
+}
+
+/* ===== Carousel ===== */
+.carousel-section {
+    margin-bottom: 10px;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    padding: 20px 30px;
+    bottom: 30px;
+}
+
+.carousel-caption h2 {
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.carousel-caption p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.carousel-indicators button {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
 }

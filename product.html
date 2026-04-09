@@ -3,10 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Chi tiet san pham - K-Pop Store</title>
+        <title>Chi tiết sản phẩm - K-Pop Store</title>
         <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+        <meta name="description" content="Xem chi tiết và mua nhạc số K-Pop chất lượng cao. Tải về ngay sau khi thanh toán." />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.4/css/all.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/components.css" />
         <link rel="stylesheet" href="css/responsive.css" />
@@ -21,12 +22,13 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <ul class="navbar-nav align-items-center gap-1">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
                         <li class="nav-item">
-                            <a class="cart-nav-link" href="cart.html"
-                                >Cart <span class="cart-badge" id="cartBadge">0</span></a
-                            >
+                            <a class="cart-nav-link" href="cart.html">
+                                <i class="fas fa-shopping-cart"></i> Giỏ hàng <span class="cart-badge" id="cartBadge">0</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -37,34 +39,54 @@
             <div class="container">
                 <div class="page-header">
                     <div class="breadcrumb-custom">
-                        <a href="index.html">Trang chu</a> / <span id="breadcrumbTitle">...</span>
+                        <a href="index.html">Trang chủ</a> / <span id="breadcrumbTitle">...</span>
                     </div>
                 </div>
 
                 <div class="row g-4 product-detail" id="productDetail">
                     <!-- Được render bằng JS -->
                 </div>
+
+                <!-- Sản phẩm liên quan -->
+                <section class="related-products mt-5" id="relatedProducts" style="display: none;">
+                    <h2 class="section-title"><i class="fas fa-headphones"></i> Sản phẩm liên quan</h2>
+                    <div class="product-grid" id="relatedGrid">
+                        <!-- Được render bằng JS -->
+                    </div>
+                </section>
             </div>
         </main>
 
-        <!-- Footer tối giản ở trang chi tiết giúp giảm nhiễu nhưng vẫn giữ liên kết quay lại -->
         <footer class="footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <h5>K-Pop Store</h5>
-                        <p>Cua hang nhac so K-Pop hang dau.</p>
+                        <p>Cửa hàng nhạc số K-Pop hàng đầu.</p>
+                        <div class="social-links">
+                            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                            <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        </div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <h5>Lien ket</h5>
+                        <h5>Liên kết</h5>
                         <ul>
-                            <li><a href="index.html">Trang chu</a></li>
-                            <li><a href="cart.html">Gio hang</a></li>
+                            <li><a href="index.html">Trang chủ</a></li>
+                            <li><a href="cart.html">Giỏ hàng</a></li>
+                            <li><a href="about.html">Giới thiệu</a></li>
+                            <li><a href="contact.html">Liên hệ</a></li>
                         </ul>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <h5>Liên hệ</h5>
+                        <p>Email: hello@kpopstore.vn</p>
+                        <p>Hotline: 0909 123 456</p>
                     </div>
                 </div>
                 <div class="footer-bottom">
-                    <p>&copy; 2026 K-Pop Store. Made with <i class="fas fa-heart"></i> by fans.</p>
+                    <p>&copy; 2026 K-Pop Store. Được tạo với <i class="fas fa-heart"></i> bởi những người yêu nhạc Hàn.</p>
                 </div>
             </div>
         </footer>
@@ -79,24 +101,18 @@
                 var productId = params.get('id');
 
                 if (!productId) {
-                    // Query param có thể thiếu khi người dùng sửa URL thủ công, nên cần fail-safe với lối quay lại rõ ràng.
                     document.getElementById('productDetail').innerHTML =
-                        '<div class="col-12"><div class="empty-state"><h3>Khong tim thay san pham</h3><p><a href="index.html">Quay lai trang chu</a></p></div></div>';
+                        '<div class="col-12"><div class="empty-state"><h3>Không tìm thấy sản phẩm</h3><p><a href="index.html">Quay lại trang chủ</a></p></div></div>';
                     return;
                 }
 
                 fetch('data/products.json')
-                    .then(function (res) {
-                        return res.json();
-                    })
+                    .then(function (res) { return res.json(); })
                     .then(function (products) {
-                        var product = products.find(function (p) {
-                            return p.id === productId;
-                        });
+                        var product = products.find(function (p) { return p.id === productId; });
                         if (!product) {
-                            // Xử lý deep link cũ giúp tránh render bố cục chi tiết bị lỗi.
                             document.getElementById('productDetail').innerHTML =
-                                '<div class="col-12"><div class="empty-state"><h3>San pham khong ton tai</h3><p><a href="index.html">Quay lai trang chu</a></p></div></div>';
+                                '<div class="col-12"><div class="empty-state"><h3>Sản phẩm không tồn tại</h3><p><a href="index.html">Quay lại trang chủ</a></p></div></div>';
                             return;
                         }
 
@@ -105,49 +121,52 @@
 
                         document.getElementById('productDetail').innerHTML =
                             '<div class="col-md-6">' +
-                            '<div class="detail-image"><img src="' +
-                            product.cover +
-                            '" alt="' +
-                            product.title +
-                            '"></div>' +
+                            '<div class="detail-image"><img src="' + product.cover + '" alt="' + product.title + '"></div>' +
                             '</div>' +
                             '<div class="col-md-6">' +
                             '<div class="pt-2">' +
-                            '<div class="detail-artist">' +
-                            product.artist +
-                            '</div>' +
-                            '<h1 class="detail-title">' +
-                            product.title +
-                            '</h1>' +
-                            '<span class="detail-type">' +
-                            product.type +
-                            '</span>' +
-                            '<div class="detail-price mt-3">' +
-                            Cart.formatPrice(product.price) +
-                            '</div>' +
+                            '<div class="detail-artist">' + product.artist + '</div>' +
+                            '<h1 class="detail-title">' + product.title + '</h1>' +
+                            '<span class="detail-type">' + product.type + '</span>' +
+                            '<div class="detail-price mt-3">' + Cart.formatPrice(product.price) + '</div>' +
                             '<div class="detail-formats">' +
-                            product.format
-                                .map(function (f) {
-                                    return '<span>' + f + '</span>';
-                                })
-                                .join('') +
+                            product.format.map(function (f) { return '<span>' + f + '</span>'; }).join('') +
                             '</div>' +
                             '<div class="detail-actions">' +
-                            '<button class="btn-pill btn-pill-filled" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Add to Cart</button>' +
-                            '<a href="index.html" class="btn-pill btn-pill-outline"><i class="fas fa-arrow-left"></i> Tiep tuc mua sam</a>' +
+                            '<button class="btn-pill btn-pill-filled" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>' +
+                            '<a href="index.html" class="btn-pill btn-pill-outline"><i class="fas fa-arrow-left"></i> Tiếp tục mua sắm</a>' +
                             '</div>' +
-                            '<p class="detail-description">Nhac so chat luong cao tu ' +
-                            product.artist +
-                            '. Co san dinh dang ' +
-                            product.format.join(', ') +
-                            '. Tai ve ngay sau khi thanh toan.</p>' +
+                            '<p class="detail-description">Nhạc số chất lượng cao từ ' + product.artist +
+                            '. Có sẵn định dạng ' + product.format.join(', ') +
+                            '. Tải về ngay sau khi thanh toán.</p>' +
                             '</div>' +
                             '</div>';
 
                         document.getElementById('addToCartBtn').addEventListener('click', function () {
-                            // Trang chi tiết luôn thêm 1 sản phẩm để CTA này giữ hành vi ổn định và nhanh.
                             Cart.addToCart(product);
                         });
+
+                        // Render sản phẩm liên quan (cùng nghệ sĩ, trừ sản phẩm hiện tại)
+                        var related = products.filter(function (p) {
+                            return p.artist === product.artist && p.id !== product.id;
+                        });
+                        if (related.length > 0) {
+                            document.getElementById('relatedProducts').style.display = 'block';
+                            document.getElementById('relatedGrid').innerHTML = related.map(function (p) {
+                                return '<div class="product-card">' +
+                                    '<a href="product.html?id=' + p.id + '" class="card-image">' +
+                                    '<img src="' + p.cover + '" alt="' + p.title + '" loading="lazy">' +
+                                    '<span class="card-type-badge">' + p.type + '</span>' +
+                                    '</a>' +
+                                    '<div class="card-body">' +
+                                    '<div class="card-artist">' + p.artist + '</div>' +
+                                    '<div class="card-title"><a href="product.html?id=' + p.id + '">' + p.title + '</a></div>' +
+                                    '<div class="card-price">' + Cart.formatPrice(p.price) + '</div>' +
+                                    '<a href="product.html?id=' + p.id + '" class="btn-pill btn-pill-outline btn-pill-block btn-pill-sm">Xem chi tiết</a>' +
+                                    '</div>' +
+                                    '</div>';
+                            }).join('');
+                        }
                     });
             })();
         </script>

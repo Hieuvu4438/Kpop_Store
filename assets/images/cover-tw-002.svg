@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B76E79"/>
+      <stop offset="100%" stop-color="#2C1320"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <circle cx="200" cy="170" r="90" fill="none" stroke="#D4A574" stroke-width="2" opacity="0.4"/>
+  <circle cx="200" cy="170" r="60" fill="none" stroke="#D4A574" stroke-width="1.5" opacity="0.3"/>
+  <rect x="170" y="140" width="60" height="60" rx="4" fill="none" stroke="#D4A574" stroke-width="1" opacity="0.3" transform="rotate(45 200 170)"/>
+  <text x="200" y="300" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#D4A574" opacity="0.8" letter-spacing="4">TWICE</text>
+  <text x="200" y="340" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#fff" font-weight="bold">READY TO BE</text>
+  <rect x="155" y="355" width="90" height="24" rx="12" fill="#D4A574" opacity="0.4"/>
+  <text x="200" y="372" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#fff" font-weight="bold">ALBUM</text>
+</svg>

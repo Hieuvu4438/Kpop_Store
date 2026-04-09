@@ -11,9 +11,9 @@
         checkoutContent.innerHTML =
             '<div class="empty-state">' +
             '<div class="empty-icon"><i class="fas fa-shopping-cart"></i></div>' +
-            '<h3>Gio hang trong</h3>' +
-            '<p>Vui long them san pham truoc khi thanh toan.</p>' +
-            '<a href="index.html" class="btn-pill btn-pill-filled">Mua sam ngay</a>' +
+            '<h3>Giỏ hàng trống</h3>' +
+            '<p>Vui lòng thêm sản phẩm trước khi thanh toán.</p>' +
+            '<a href="index.html" class="btn-pill btn-pill-filled">Mua sắm ngay</a>' +
             '</div>';
         return;
     }
@@ -22,16 +22,8 @@
         .map(function (item) {
             return (
                 '<div class="summary-row">' +
-                '<span>' +
-                item.title +
-                ' - ' +
-                item.artist +
-                ' (x' +
-                item.qty +
-                ')</span>' +
-                '<span>' +
-                Cart.formatPrice(item.price * item.qty) +
-                '</span>' +
+                '<span>' + item.title + ' - ' + item.artist + ' (x' + item.qty + ')</span>' +
+                '<span>' + Cart.formatPrice(item.price * item.qty) + '</span>' +
                 '</div>'
             );
         })
@@ -41,8 +33,8 @@
         '<div class="row g-4">' +
         '<div class="col-md-6">' +
         '<div class="qr-section">' +
-        '<h3>Quet ma de thanh toan</h3>' +
-        '<p class="text-muted-custom">Chuyen khoan qua Momo hoac ngan hang</p>' +
+        '<h3>Quét mã để thanh toán</h3>' +
+        '<p class="text-muted-custom">Chuyển khoản qua Momo hoặc ngân hàng</p>' +
         '<div class="qr-image">' +
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="180" height="180">' +
         '<rect width="200" height="200" fill="white"/>' +
@@ -65,30 +57,27 @@
         '</svg>' +
         '</div>' +
         '<div class="qr-info">' +
-        '<strong>Ngan hang:</strong> Vietcombank<br>' +
+        '<strong>Ngân hàng:</strong> Vietcombank<br>' +
         '<strong>STK:</strong> 1234 5678 9000<br>' +
-        '<strong>Chu TK:</strong> KPOP STORE<br>' +
-        '<strong>Noi dung CK:</strong> KPOP ' +
-        // Hậu tố timestamp ngắn tạo mã chuyển khoản gọn để người dùng đối chiếu từ lịch sử ngân hàng.
+        '<strong>Chủ TK:</strong> KPOP STORE<br>' +
+        '<strong>Nội dung CK:</strong> KPOP ' +
         Date.now().toString().slice(-6) +
         '<br>' +
-        '<strong>So tien:</strong> ' +
+        '<strong>Số tiền:</strong> ' +
         Cart.formatPrice(Cart.getCartTotal()) +
         '</div>' +
         '<button class="btn-pill btn-pill-filled btn-pill-block" id="confirmPayBtn">' +
-        '<i class="fas fa-check"></i> Toi da chuyen khoan' +
+        '<i class="fas fa-check"></i> Tôi đã chuyển khoản' +
         '</button>' +
         '</div>' +
         '</div>' +
         '<div class="col-md-6">' +
         '<div class="cart-summary">' +
-        '<h5 style="font-family: var(--font-heading); margin-bottom: 16px;">Don hang cua ban</h5>' +
+        '<h5 style="font-family: var(--font-heading); margin-bottom: 16px;">Đơn hàng của bạn</h5>' +
         summaryHTML +
         '<div class="summary-total">' +
-        '<span>Tong cong</span>' +
-        '<span>' +
-        Cart.formatPrice(Cart.getCartTotal()) +
-        '</span>' +
+        '<span>Tổng cộng</span>' +
+        '<span>' + Cart.formatPrice(Cart.getCartTotal()) + '</span>' +
         '</div>' +
         '</div>' +
         '</div>' +

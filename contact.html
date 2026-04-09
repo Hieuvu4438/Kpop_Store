@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Liên hệ - K-Pop Store</title>
+        <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+        <meta name="description" content="Liên hệ với K-Pop Music Store — Chúng tôi luôn sẵn sàng hỗ trợ bạn." />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/components.css" />
+        <link rel="stylesheet" href="css/responsive.css" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg sticky-top">
+            <div class="container">
+                <a class="navbar-brand text-upper" href="index.html">K-Pop Store</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                    <ul class="navbar-nav align-items-center gap-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">Giới thiệu</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="contact.html">Liên hệ</a></li>
+                        <li class="nav-item">
+                            <a class="cart-nav-link" href="cart.html">
+                                <i class="fas fa-shopping-cart"></i> Giỏ hàng <span class="cart-badge" id="cartBadge">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div class="container">
+                <div class="page-header">
+                    <h1>Liên hệ</h1>
+                    <div class="breadcrumb-custom"><a href="index.html">Trang chủ</a> / Liên hệ</div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Form liên hệ -->
+                    <div class="col-lg-7">
+                        <div class="bento-box">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 20px;">
+                                <i class="fas fa-envelope"></i> Gửi tin nhắn cho chúng tôi
+                            </h3>
+                            <form id="contactForm" onsubmit="event.preventDefault(); showToast('Liên hệ', 'Cảm ơn bạn! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.'); this.reset();">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label-custom" for="contactName">Họ và tên *</label>
+                                        <input type="text" id="contactName" class="form-input-custom" placeholder="Nhập họ và tên..." required />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label-custom" for="contactEmail">Email *</label>
+                                        <input type="email" id="contactEmail" class="form-input-custom" placeholder="Nhập email..." required />
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label-custom" for="contactPhone">Số điện thoại</label>
+                                        <input type="tel" id="contactPhone" class="form-input-custom" placeholder="Nhập số điện thoại..." />
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label-custom" for="contactSubject">Chủ đề *</label>
+                                        <select id="contactSubject" class="form-input-custom" required>
+                                            <option value="">— Chọn chủ đề —</option>
+                                            <option value="order">Hỏi về đơn hàng</option>
+                                            <option value="payment">Vấn đề thanh toán</option>
+                                            <option value="download">Vấn đề tải nhạc</option>
+                                            <option value="suggestion">Góp ý / Đề xuất</option>
+                                            <option value="other">Khác</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label-custom" for="contactMessage">Nội dung *</label>
+                                        <textarea id="contactMessage" class="form-input-custom" rows="5" placeholder="Nhập nội dung tin nhắn..." required></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn-pill btn-pill-filled">
+                                            <i class="fas fa-paper-plane"></i> Gửi tin nhắn
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin liên hệ -->
+                    <div class="col-lg-5">
+                        <div class="bento-box bento-box-dark mb-3">
+                            <h3 style="color: var(--white); font-size: 1.3rem; margin-bottom: 16px;">
+                                <i class="fas fa-info-circle"></i> Thông tin liên hệ
+                            </h3>
+                            <div class="contact-info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong style="color: var(--white);">Địa chỉ</strong>
+                                    <p style="color: var(--gray-light); margin: 0;">Bitexco Financial Tower, Quận 1, TP. Hồ Chí Minh</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <strong style="color: var(--white);">Hotline</strong>
+                                    <p style="color: var(--gray-light); margin: 0;">0909 123 456</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <strong style="color: var(--white);">Email</strong>
+                                    <p style="color: var(--gray-light); margin: 0;">hello@kpopstore.vn</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <strong style="color: var(--white);">Giờ làm việc</strong>
+                                    <p style="color: var(--gray-light); margin: 0;">Thứ 2 - Thứ 7: 8:00 - 22:00<br/>Chủ nhật: 9:00 - 18:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mạng xã hội -->
+                        <div class="bento-box">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 12px;">
+                                <i class="fas fa-share-alt"></i> Theo dõi chúng tôi
+                            </h3>
+                            <div class="social-links social-links-lg">
+                                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- FAQ nhanh -->
+                        <div class="bento-box mt-3">
+                            <h3 style="font-size: 1.2rem; margin-bottom: 12px;">
+                                <i class="fas fa-question-circle"></i> Câu hỏi thường gặp
+                            </h3>
+                            <div class="faq-item">
+                                <strong>Tôi có thể tải nhạc bao nhiêu lần?</strong>
+                                <p style="color: var(--gray); font-size: 0.85rem; margin: 4px 0 12px;">Bạn có thể tải không giới hạn sau khi thanh toán thành công.</p>
+                            </div>
+                            <div class="faq-item">
+                                <strong>Hỗ trợ định dạng nào?</strong>
+                                <p style="color: var(--gray); font-size: 0.85rem; margin: 4px 0 12px;">Tất cả bài hát đều có sẵn ở định dạng MP3 (320kbps) và FLAC (lossless).</p>
+                            </div>
+                            <div class="faq-item">
+                                <strong>Thanh toán bằng cách nào?</strong>
+                                <p style="color: var(--gray); font-size: 0.85rem; margin: 4px 0 0;">Hỗ trợ chuyển khoản qua QR Code ngân hàng, Momo và các ví điện tử phổ biến.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bản đồ -->
+                <section class="map-section mt-4 mb-3">
+                    <h2><i class="fas fa-map-marker-alt"></i> Vị trí cửa hàng</h2>
+                    <div class="bento-box" style="padding: 0">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.5177580567037!2d106.69892!3d10.77154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f38f9ed887b%3A0x14aded5703768989!2sBitexco%20Financial%20Tower!5e0!3m2!1sen!2svn!4v1680000000000!5m2!1sen!2svn"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <h5>K-Pop Store</h5>
+                        <p>Cửa hàng nhạc số K-Pop hàng đầu.</p>
+                        <div class="social-links">
+                            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                            <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <h5>Liên kết</h5>
+                        <ul>
+                            <li><a href="index.html">Trang chủ</a></li>
+                            <li><a href="cart.html">Giỏ hàng</a></li>
+                            <li><a href="about.html">Giới thiệu</a></li>
+                            <li><a href="contact.html">Liên hệ</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <h5>Liên hệ</h5>
+                        <p>Email: hello@kpopstore.vn</p>
+                        <p>Hotline: 0909 123 456</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2026 K-Pop Store. Được tạo với <i class="fas fa-heart"></i> bởi những người yêu nhạc Hàn.</p>
+                </div>
+            </div>
+        </footer>
+
+        <div class="toast-container" id="toastContainer"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/cart.js"></script>
+        <script src="js/chat.js"></script>
+    </body>
+</html>

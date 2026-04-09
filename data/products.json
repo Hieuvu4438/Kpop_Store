@@ -5,10 +5,9 @@
         "artist": "BLACKPINK",
         "genre": "K-Pop / Dance",
         "price": 29000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-bp-001.svg",
         "format": ["MP3", "FLAC"],
         "type": "Single",
-
         "download": "#"
     },
     {
@@ -17,10 +16,9 @@
         "artist": "BLACKPINK",
         "genre": "K-Pop / Dance",
         "price": 29000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-bp-002.svg",
         "format": ["MP3", "FLAC"],
         "type": "Single",
-
         "download": "#"
     },
     {
@@ -29,10 +27,9 @@
         "artist": "BLACKPINK",
         "genre": "K-Pop",
         "price": 149000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-bp-003.svg",
         "format": ["MP3", "FLAC"],
         "type": "Album",
-
         "download": "#"
     },
     {
@@ -41,10 +38,9 @@
         "artist": "BTS",
         "genre": "K-Pop / Pop",
         "price": 29000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-bts-001.svg",
         "format": ["MP3", "FLAC"],
         "type": "Single",
-
         "download": "#"
     },
     {
@@ -53,10 +49,9 @@
         "artist": "BTS",
         "genre": "K-Pop / Pop",
         "price": 29000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-bts-002.svg",
         "format": ["MP3", "FLAC"],
         "type": "Single",
-
         "download": "#"
     },
     {
@@ -65,10 +60,9 @@
         "artist": "BTS",
         "genre": "K-Pop",
         "price": 199000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-bts-003.svg",
         "format": ["MP3", "FLAC"],
         "type": "Album",
-
         "download": "#"
     },
     {
@@ -77,10 +71,9 @@
         "artist": "NewJeans",
         "genre": "K-Pop / R&B",
         "price": 25000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-nj-001.svg",
         "format": ["MP3", "FLAC"],
         "type": "Single",
-
         "download": "#"
     },
     {
@@ -89,10 +82,9 @@
         "artist": "NewJeans",
         "genre": "K-Pop / R&B",
         "price": 25000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-nj-002.svg",
         "format": ["MP3", "FLAC"],
         "type": "Single",
-
         "download": "#"
     },
     {
@@ -101,10 +93,9 @@
         "artist": "NewJeans",
         "genre": "K-Pop",
         "price": 129000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-nj-003.svg",
         "format": ["MP3", "FLAC"],
         "type": "Album",
-
         "download": "#"
     },
     {
@@ -113,10 +104,9 @@
         "artist": "TWICE",
         "genre": "K-Pop / Pop",
         "price": 29000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-tw-001.svg",
         "format": ["MP3", "FLAC"],
         "type": "Single",
-
         "download": "#"
     },
     {
@@ -125,10 +115,9 @@
         "artist": "TWICE",
         "genre": "K-Pop",
         "price": 159000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-tw-002.svg",
         "format": ["MP3", "FLAC"],
         "type": "Album",
-
         "download": "#"
     },
     {
@@ -137,10 +126,9 @@
         "artist": "IU",
         "genre": "K-Pop / Ballad",
         "price": 29000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-iu-001.svg",
         "format": ["MP3", "FLAC"],
         "type": "Single",
-
         "download": "#"
     },
     {
@@ -149,10 +137,9 @@
         "artist": "IU",
         "genre": "K-Pop",
         "price": 139000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-iu-002.svg",
         "format": ["MP3", "FLAC"],
         "type": "Album",
-
         "download": "#"
     },
     {
@@ -161,10 +148,9 @@
         "artist": "LE SSERAFIM",
         "genre": "K-Pop / Dance",
         "price": 29000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-sk-001.svg",
         "format": ["MP3", "FLAC"],
         "type": "Single",
-
         "download": "#"
     },
     {
@@ -173,10 +159,9 @@
         "artist": "LE SSERAFIM",
         "genre": "K-Pop",
         "price": 139000,
-        "cover": "assets/images/album-placeholder.svg",
+        "cover": "assets/images/cover-sk-002.svg",
         "format": ["MP3", "FLAC"],
         "type": "Album",
-
         "download": "#"
     }
 ]

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0533"/>
+      <stop offset="100%" stop-color="#4B0082"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bg)"/>
+  <rect x="40" y="40" width="140" height="140" rx="12" fill="#7B2FF7" opacity="0.3"/>
+  <rect x="220" y="40" width="140" height="140" rx="12" fill="#9B59B6" opacity="0.2"/>
+  <rect x="40" y="220" width="140" height="140" rx="12" fill="#9B59B6" opacity="0.2"/>
+  <rect x="220" y="220" width="140" height="140" rx="12" fill="#7B2FF7" opacity="0.3"/>
+  <text x="200" y="195" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#D8BFD8" opacity="0.8" letter-spacing="6">BTS</text>
+  <text x="200" y="225" text-anchor="middle" font-family="Georgia,serif" font-size="34" fill="#fff" font-weight="bold">Proof</text>
+  <rect x="155" y="245" width="90" height="24" rx="12" fill="#7B2FF7" opacity="0.5"/>
+  <text x="200" y="262" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#fff" font-weight="bold">ALBUM</text>
+</svg>
